@@ -1,694 +1,931 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>MCQ Mega Quiz</title>
+    <meta charset="UTF-8">
+    <title>MCQ Mega Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #e4e4e4;
+            padding: 20px;
+        }
 
-<style>
-body {
-    font-family: Arial;
-    background: #f0f2f5;
-    padding: 20px;
-}
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }
 
-h1 {
-    text-align: center;
-}
+        .question {
+            background: #1e1e1e;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
 
-.question {
-    background: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-}
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 6px 0;
+            background: #2c2c2c;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-.option {
-    display: block;
-    padding: 10px;
-    margin: 5px 0;
-    background: #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .option:hover {
+            background: #3a3a3a;
+        }
 
-.option:hover {
-    background: #ccc;
-}
+        .correct {
+            background: #2e7d32 !important;
+            color: white;
+        }
 
-.correct {
-    background: #4CAF50 !important;
-    color: white;
-}
+        .wrong {
+            background: #c62828 !important;
+            color: white;
+        }
+    </style>
 
-.wrong {
-    background: #f44336 !important;
-    color: white;
-}
-</style>
 </head>
 
 <body>
 
-<h1>📚 MCQ Mega Quiz (Week 1–10)</h1>
+    <h1>📚 MCQ Mega Quiz (Week 1–10)</h1>
 
-<div id="quiz"></div>
+    <div id="quiz"></div>
 
-<script>
+    <script>
 
-// 🔥 SAMPLE (baaki tum same format me paste karo)
-const mcqs = [
+        // 🔥 SAMPLE (baaki tum same format me paste karo)
+        const mcqs = [
 
-{question:"What is the primary role of a sensor in an IoT system?",options:["Data processing","Data storage","Data acquisition","Data visualization"],answer:2},
+            { question: "What is the primary role of a sensor in an IoT system?", options: ["Data processing", "Data storage", "Data acquisition", "Data visualization"], answer: 2 },
 
-{question:"Which of the following converts electrical signals into physical action?",options:["Sensor","Controller","Actuator","Gateway"],answer:2},
+            { question: "Which of the following converts electrical signals into physical action?", options: ["Sensor", "Controller", "Actuator", "Gateway"], answer: 2 },
 
-{question:"A temperature sensor is an example of:",options:["Actuator","Input device","Processing unit","Output device"],answer:1},
+            { question: "A temperature sensor is an example of:", options: ["Actuator", "Input device", "Processing unit", "Output device"], answer: 1 },
 
-{question:"Which characteristic is most critical for industrial sensors?",options:["Color","Accuracy","Size","Shape"],answer:1},
+            { question: "Which characteristic is most critical for industrial sensors?", options: ["Color", "Accuracy", "Size", "Shape"], answer: 1 },
 
-{question:"Actuators are controlled by:",options:["Sensors","Data","Control signals","Networks"],answer:2},
+            { question: "Actuators are controlled by:", options: ["Sensors", "Data", "Control signals", "Networks"], answer: 2 },
 
-{question:"Which of the following is NOT a sensor type?",options:["Pressure sensor","Temperature sensor","Motor","Light sensor"],answer:2},
+            { question: "Which of the following is NOT a sensor type?", options: ["Pressure sensor", "Temperature sensor", "Motor", "Light sensor"], answer: 2 },
 
-{question:"The process of converting physical signals into digital data is called:",options:["Actuation","Sampling","Networking","Routing"],answer:1},
+            { question: "The process of converting physical signals into digital data is called:", options: ["Actuation", "Sampling", "Networking", "Routing"], answer: 1 },
 
-{question:"Which device acts as a bridge between sensor and cloud?",options:["Gateway","Router","Switch","Server"],answer:0},
+            { question: "Which device acts as a bridge between sensor and cloud?", options: ["Gateway", "Router", "Switch", "Server"], answer: 0 },
 
-{question:"Sensors in IoT are mainly deployed for:",options:["Data deletion","Data collection","Data encryption","Data storage"],answer:1},
+            { question: "Sensors in IoT are mainly deployed for:", options: ["Data deletion", "Data collection", "Data encryption", "Data storage"], answer: 1 },
 
-{question:"Which parameter is measured by a humidity sensor?",options:["Temperature","Pressure","Moisture","Voltage"],answer:2},
+            { question: "Which parameter is measured by a humidity sensor?", options: ["Temperature", "Pressure", "Moisture", "Voltage"], answer: 2 },
 
-{question:"Which protocol is lightweight and widely used in IoT?",options:["HTTP","FTP","MQTT","SMTP"],answer:2},
+            { question: "Which protocol is lightweight and widely used in IoT?", options: ["HTTP", "FTP", "MQTT", "SMTP"], answer: 2 },
 
-{question:"MQTT follows which architecture?",options:["Peer-to-peer","Client-server","Publish-subscribe","Ring"],answer:2},
+            { question: "MQTT follows which architecture?", options: ["Peer-to-peer", "Client-server", "Publish-subscribe", "Ring"], answer: 2 },
 
-{question:"Which protocol is best for constrained devices?",options:["CoAP","HTTP","FTP","SMTP"],answer:0},
+            { question: "Which protocol is best for constrained devices?", options: ["CoAP", "HTTP", "FTP", "SMTP"], answer: 0 },
 
-{question:"Bluetooth Low Energy (BLE) is mainly used for:",options:["Long-range communication","Low power communication","Satellite communication","High-speed internet"],answer:1},
+            { question: "Bluetooth Low Energy (BLE) is mainly used for:", options: ["Long-range communication", "Low power communication", "Satellite communication", "High-speed internet"], answer: 1 },
 
-{question:"Zigbee operates on which standard?",options:["IEEE 802.3","IEEE 802.11","IEEE 802.15.4","IEEE 802.16"],answer:2},
+            { question: "Zigbee operates on which standard?", options: ["IEEE 802.3", "IEEE 802.11", "IEEE 802.15.4", "IEEE 802.16"], answer: 2 },
 
-{question:"Which connectivity is best for long-range IoT?",options:["WiFi","BLE","LPWAN","NFC"],answer:2},
+            { question: "Which connectivity is best for long-range IoT?", options: ["WiFi", "BLE", "LPWAN", "NFC"], answer: 2 },
 
-{question:"CoAP is based on which protocol?",options:["TCP","UDP","HTTP","FTP"],answer:1},
+            { question: "CoAP is based on which protocol?", options: ["TCP", "UDP", "HTTP", "FTP"], answer: 1 },
 
-{question:"Which layer handles connectivity in IoT architecture?",options:["Application","Network","Perception","Business"],answer:1},
+            { question: "Which layer handles connectivity in IoT architecture?", options: ["Application", "Network", "Perception", "Business"], answer: 1 },
 
-{question:"LTE is mainly used for:",options:["Short range","Cellular communication","Sensor communication","Wired network"],answer:1},
+            { question: "LTE is mainly used for:", options: ["Short range", "Cellular communication", "Sensor communication", "Wired network"], answer: 1 },
 
-{question:"Which protocol is best for real-time IoT communication?",options:["HTTP","MQTT","FTP","SMTP"],answer:1},
+            { question: "Which protocol is best for real-time IoT communication?", options: ["HTTP", "MQTT", "FTP", "SMTP"], answer: 1 },
 
-{question:"IoT networking primarily connects:",options:["Computers only","People only","Devices and systems","Databases only"],answer:2},
+            { question: "IoT networking primarily connects:", options: ["Computers only", "People only", "Devices and systems", "Databases only"], answer: 2 },
 
-{question:"Which topology is commonly used in IoT?",options:["Star","Ring","Bus","Hybrid"],answer:0},
+            { question: "Which topology is commonly used in IoT?", options: ["Star", "Ring", "Bus", "Hybrid"], answer: 0 },
 
-{question:"A router works at which layer?",options:["Physical","Network","Data link","Application"],answer:1},
+            { question: "A router works at which layer?", options: ["Physical", "Network", "Data link", "Application"], answer: 1 },
 
-{question:"IPv6 is preferred in IoT because:",options:["Smaller address space","Larger address space","Lower speed","Less security"],answer:1},
+            { question: "IPv6 is preferred in IoT because:", options: ["Smaller address space", "Larger address space", "Lower speed", "Less security"], answer: 1 },
 
-{question:"Which device forwards data packets?",options:["Sensor","Router","Actuator","Cloud"],answer:1},
+            { question: "Which device forwards data packets?", options: ["Sensor", "Router", "Actuator", "Cloud"], answer: 1 },
 
-{question:"Network latency refers to:",options:["Data storage","Delay in transmission","Data encryption","Data processing"],answer:1},
+            { question: "Network latency refers to:", options: ["Data storage", "Delay in transmission", "Data encryption", "Data processing"], answer: 1 },
 
-{question:"Which layer ensures reliable transmission?",options:["Transport","Network","Physical","Application"],answer:0},
+            { question: "Which layer ensures reliable transmission?", options: ["Transport", "Network", "Physical", "Application"], answer: 0 },
 
-{question:"TCP is:",options:["Connectionless","Connection-oriented","Wireless","Secure protocol"],answer:1},
+            { question: "TCP is:", options: ["Connectionless", "Connection-oriented", "Wireless", "Secure protocol"], answer: 1 },
 
-{question:"UDP is preferred for IoT because:",options:["Reliable","Fast and lightweight","Secure","Complex"],answer:1},
+            { question: "UDP is preferred for IoT because:", options: ["Reliable", "Fast and lightweight", "Secure", "Complex"], answer: 1 },
 
-{question:"Gateway connects:",options:["Same networks","Different networks","Only sensors","Only cloud"],answer:1},
+            { question: "Gateway connects:", options: ["Same networks", "Different networks", "Only sensors", "Only cloud"], answer: 1 },
 
-{question:"Edge computing reduces:",options:["Cost","Latency","Security","Bandwidth"],answer:1},
+            { question: "Edge computing reduces:", options: ["Cost", "Latency", "Security", "Bandwidth"], answer: 1 },
 
-{question:"Cloud computing provides:",options:["Storage only","Processing only","Both storage and processing","Sensors"],answer:2},
+            { question: "Cloud computing provides:", options: ["Storage only", "Processing only", "Both storage and processing", "Sensors"], answer: 2 },
 
-{question:"IoT devices communicate via:",options:["Only wired","Only wireless","Both wired & wireless","None"],answer:2},
+            { question: "IoT devices communicate via:", options: ["Only wired", "Only wireless", "Both wired & wireless", "None"], answer: 2 },
 
-{question:"The brain of IoT system is:",options:["Sensor","Actuator","Controller","Network"],answer:2},
+            { question: "The brain of IoT system is:", options: ["Sensor", "Actuator", "Controller", "Network"], answer: 2 },
 
-{question:"Data aggregation is done at:",options:["Sensor","Gateway","Router","Cloud"],answer:1},
+            { question: "Data aggregation is done at:", options: ["Sensor", "Gateway", "Router", "Cloud"], answer: 1 },
 
-{question:"Which is NOT IoT layer?",options:["Perception","Network","Transport","Business"],answer:2},
+            { question: "Which is NOT IoT layer?", options: ["Perception", "Network", "Transport", "Business"], answer: 2 },
 
-{question:"IoT enables:",options:["Automation","Manual work","Offline processing","Data loss"],answer:0},
+            { question: "IoT enables:", options: ["Automation", "Manual work", "Offline processing", "Data loss"], answer: 0 },
 
-{question:"Smart home is an example of:",options:["Traditional system","IoT application","Manual system","Network protocol"],answer:1},
+            { question: "Smart home is an example of:", options: ["Traditional system", "IoT application", "Manual system", "Network protocol"], answer: 1 },
 
-{question:"Data flow in IoT starts from:",options:["Cloud","Gateway","Sensor","Network"],answer:2},
+            { question: "Data flow in IoT starts from:", options: ["Cloud", "Gateway", "Sensor", "Network"], answer: 2 },
 
-{question:"IoT mainly works on:",options:["Isolated systems","Connected systems","Offline systems","Manual systems"],answer:1},
+            { question: "IoT mainly works on:", options: ["Isolated systems", "Connected systems", "Offline systems", "Manual systems"], answer: 1 },
 
-{question:"Which is a real IoT application?",options:["Smart agriculture","Typing","Printing","Drawing"],answer:0},
+            { question: "Which is a real IoT application?", options: ["Smart agriculture", "Typing", "Printing", "Drawing"], answer: 0 },
 
-{question:"IoT helps in:",options:["Increasing manual work","Automation","Reducing connectivity","Data loss"],answer:1},
+            { question: "IoT helps in:", options: ["Increasing manual work", "Automation", "Reducing connectivity", "Data loss"], answer: 1 },
 
-{question:"Which is an IoT constraint?",options:["Unlimited power","Limited resources","High storage","High speed"],answer:1},
+            { question: "Which is an IoT constraint?", options: ["Unlimited power", "Limited resources", "High storage", "High speed"], answer: 1 },
 
-{question:"IoT system requires:",options:["No internet","Internet","Only hardware","Only software"],answer:1},
+            { question: "IoT system requires:", options: ["No internet", "Internet", "Only hardware", "Only software"], answer: 1 },
 
-{question:"Which is used for device identification?",options:["IP address","Sensor","Actuator","Router"],answer:0},
+            { question: "Which is used for device identification?", options: ["IP address", "Sensor", "Actuator", "Router"], answer: 0 },
 
-{question:"IoT improves:",options:["Efficiency","Complexity","Cost","Errors"],answer:0},
+            { question: "IoT improves:", options: ["Efficiency", "Complexity", "Cost", "Errors"], answer: 0 },
 
-{question:"IoT devices are:",options:["Smart devices","Dumb devices","Offline devices","Manual devices"],answer:0},
-
-{question:"Which layer interacts with environment?",options:["Network","Perception","Application","Business"],answer:1},
-
-{question:"IoT system requires data:",options:["Only input","Only output","Both input & output","None"],answer:2},
-
-{question:"Main goal of IoT is:",options:["Connectivity and automation","Data deletion","Manual work","Isolation"],answer:0},
-{question:"What distinguishes Industry 4.0 from previous industrial revolutions?",options:["Use of steam engines","Mass production","Integration of cyber-physical systems","Manual labor"],answer:2},
-{question:"Industry 4.0 primarily focuses on:",options:["Isolated machines","Connected and intelligent systems","Manual processes","Mechanical tools"],answer:1},
-{question:"Which component is central to Industry 4.0?",options:["Mechanical systems","Cyber-Physical Systems","Human labor","Paper-based systems"],answer:1},
-{question:"The key driver of Industry 4.0 is:",options:["Electricity","Data and connectivity","Steam power","Manual work"],answer:1},
-{question:"Industry 4.0 enables:",options:["Static systems","Decentralized decision making","Manual control","Offline processing"],answer:1},
-{question:"Which revolution introduced automation?",options:["Industry 1.0","Industry 2.0","Industry 3.0","Industry 4.0"],answer:2},
-{question:"Industry 4.0 systems are characterized by:",options:["Low flexibility","High adaptability","No connectivity","Manual processes"],answer:1},
-{question:"Smart manufacturing is based on:",options:["Manual inspection","Data-driven processes","Isolated systems","Paper records"],answer:1},
-{question:"Which is NOT a pillar of Industry 4.0?",options:["IoT","Big Data","Typewriters","AI"],answer:2},
-{question:"Industry 4.0 integrates:",options:["Only hardware","Only software","Physical and digital systems","Manual and mechanical systems"],answer:2},
-
-{question:"Sustainability in Industry 4.0 aims to:",options:["Increase waste","Optimize resource usage","Increase cost","Reduce automation"],answer:1},
-{question:"Lean production focuses on:",options:["Increasing waste","Eliminating waste","Increasing inventory","Reducing efficiency"],answer:1},
-{question:"Which is a principle of lean manufacturing?",options:["Overproduction","Just-in-time production","Excess inventory","Delays"],answer:1},
-{question:"Industry 4.0 enhances sustainability by:",options:["Increasing energy consumption","Reducing efficiency","Optimizing processes","Ignoring data"],answer:2},
-{question:"Smart factories reduce:",options:["Automation","Waste and downtime","Data usage","Connectivity"],answer:1},
-{question:"Lean systems emphasize:",options:["Complexity","Simplicity and efficiency","Delays","Redundancy"],answer:1},
-{question:"Sustainability assessment includes:",options:["Only economic factors","Environmental and social factors","Only technical factors","Only manual processes"],answer:1},
-{question:"Industry 4.0 supports circular economy by:",options:["Increasing waste","Reusing resources","Ignoring recycling","Increasing production only"],answer:1},
-{question:"Which factor improves energy efficiency in Industry 4.0?",options:["Data analytics","Manual tracking","Paper logs","Isolated systems"],answer:0},
-{question:"Lean production reduces:",options:["Productivity","Waste","Efficiency","Automation"],answer:1},
-
-{question:"Smart factories rely on:",options:["Manual control","Connected systems","Isolated machines","Paper records"],answer:1},
-{question:"Which feature enables real-time decision making?",options:["Data analytics","Manual logs","Paper records","Offline systems"],answer:0},
-{question:"Smart business models are:",options:["Static","Data-driven","Manual","Offline"],answer:1},
-{question:"Which technology enables predictive maintenance?",options:["AI and analytics","Paper logs","Manual inspection","Offline tools"],answer:0},
-{question:"Smart factories are characterized by:",options:["Low connectivity","High automation","Manual work","No data usage"],answer:1},
-{question:"Digital twins are used for:",options:["Manual design","Virtual simulation","Data storage only","Networking"],answer:1},
-{question:"Which improves supply chain visibility?",options:["IoT","Paper logs","Manual tracking","Offline systems"],answer:0},
-{question:"Smart factories enable:",options:["Delayed response","Real-time monitoring","No automation","Manual control"],answer:1},
-{question:"Which factor is critical for smart business?",options:["Data","Paper records","Manual logs","Isolation"],answer:0},
-{question:"Industry 4.0 promotes:",options:["Centralized rigid systems","Flexible production","Manual processes","Offline work"],answer:1},
-
-{question:"Industry 4.0 systems are:",options:["Reactive","Proactive","Manual","Offline"],answer:1},
-{question:"Real-time data enables:",options:["Delayed decisions","Immediate decisions","No decisions","Manual control"],answer:1},
-{question:"Cyber-physical integration enables:",options:["Isolation","Automation","Manual work","Offline systems"],answer:1},
-{question:"Industry 4.0 reduces:",options:["Efficiency","Downtime","Automation","Connectivity"],answer:1},
-{question:"Smart manufacturing depends on:",options:["Data","Paper","Manual work","Isolation"],answer:0},
-{question:"Intelligent systems are capable of:",options:["Learning","Ignoring data","Manual work","Isolation"],answer:0},
-{question:"Which enables adaptive systems?",options:["AI","Paper logs","Manual work","Isolation"],answer:0},
-{question:"Smart factories use:",options:["Static systems","Dynamic systems","Manual processes","Offline tools"],answer:1},
-{question:"Which improves productivity?",options:["Automation","Manual work","Isolation","Paper logs"],answer:0},
-{question:"Industry 4.0 systems are:",options:["Independent","Interconnected","Offline","Manual"],answer:1},
-
-{question:"A factory using sensors + analytics is an example of:",options:["Industry 2.0","Industry 3.0","Industry 4.0","Industry 1.0"],answer:2},
-{question:"Predictive maintenance reduces:",options:["Failures","Efficiency","Automation","Data"],answer:0},
-{question:"Smart factories rely heavily on:",options:["Data","Paper","Manual work","Isolation"],answer:0},
-{question:"Which improves decision making?",options:["Analytics","Manual logs","Paper","Isolation"],answer:0},
-{question:"Industry 4.0 enhances:",options:["Automation","Manual work","Isolation","Delays"],answer:0},
-{question:"Data-driven systems are:",options:["Inefficient","Efficient","Manual","Offline"],answer:1},
-{question:"Smart systems can:",options:["Predict outcomes","Ignore data","Work offline","Be static"],answer:0},
-{question:"Which is a key benefit of Industry 4.0?",options:["Increased downtime","Improved efficiency","Reduced automation","Manual processes"],answer:1},
-{question:"Smart manufacturing integrates:",options:["Data and machines","Paper and logs","Manual work","Isolation"],answer:0},
-{question:"Industry 4.0 leads to:",options:["Digital transformation","Manual transformation","No change","Isolation"],answer:0},
-
-// WEEK 3 START
-
-{question:"What is a Cyber-Physical System (CPS)?",options:["Only physical system","Only software system","Integration of computation, networking, and physical processes","Manual control system"],answer:2},
-{question:"CPS enables:",options:["Offline systems","Real-time interaction between physical and digital worlds","Manual processing","Isolation"],answer:1},
-{question:"Which component is NOT part of CPS?",options:["Sensors","Actuators","Data processing","Paper records"],answer:3},
-{question:"CPS is mainly used in:",options:["Traditional factories","Smart systems","Manual systems","Offline systems"],answer:1},
-{question:"CPS requires:",options:["No communication","Real-time data exchange","Manual logs","Paper systems"],answer:1},
-{question:"Which feature defines CPS?",options:["Isolation","Integration","Manual control","Offline operation"],answer:1},
-{question:"CPS systems are:",options:["Static","Dynamic and adaptive","Manual","Offline"],answer:1},
-{question:"CPS improves:",options:["Latency","Automation","Manual work","Isolation"],answer:1},
-{question:"CPS is closely related to:",options:["Industry 1.0","Industry 4.0","Manual systems","Offline systems"],answer:1},
-{question:"CPS integrates:",options:["Hardware only","Software only","Physical and digital components","Paper systems"],answer:2},
-
-{question:"PLM stands for:",options:["Product Level Model","Product Lifecycle Management","Process Lifecycle Model","Production Level Management"],answer:1},
-{question:"PLM manages:",options:["Only manufacturing","Entire product lifecycle","Only design","Only sales"],answer:1},
-{question:"PLM starts from:",options:["Production","Design phase","Delivery","Maintenance"],answer:1},
-{question:"PLM ends at:",options:["Production","Delivery","Disposal","Design"],answer:2},
-{question:"PLM improves:",options:["Product quality","Manual work","Isolation","Errors"],answer:0},
-{question:"Which phase is part of PLM?",options:["Design","Development","Maintenance","All of the above"],answer:3},
-{question:"PLM enables:",options:["Data fragmentation","Data integration","Manual tracking","Isolation"],answer:1},
-{question:"PLM is supported by:",options:["Digital tools","Paper logs","Manual records","Isolation"],answer:0},
-{question:"PLM helps in:",options:["Reducing efficiency","Improving collaboration","Increasing errors","Manual processes"],answer:1},
-{question:"PLM integrates:",options:["Departments","Only machines","Only people","Only data"],answer:0},
-
-{question:"Augmented Reality (AR) overlays:",options:["Real world on virtual","Virtual elements on real world","Only virtual world","Only physical world"],answer:1},
-{question:"Virtual Reality (VR) creates:",options:["Real environment","Fully immersive virtual environment","Mixed environment","Manual system"],answer:1},
-{question:"AR is widely used in:",options:["Maintenance support","Paper logs","Manual work","Isolation"],answer:0},
-{question:"VR is useful for:",options:["Simulation and training","Manual processes","Offline work","Data deletion"],answer:0},
-{question:"Which is a key advantage of AR?",options:["No visualization","Enhanced real-time guidance","Isolation","Manual control"],answer:1},
-{question:"VR systems require:",options:["Head-mounted displays","Sensors only","Paper logs","Manual tools"],answer:0},
-{question:"AR improves:",options:["Errors","Productivity","Manual work","Isolation"],answer:1},
-{question:"VR eliminates:",options:["Risk in training","Data","Sensors","Connectivity"],answer:0},
-{question:"AR integrates:",options:["Physical + digital info","Manual + paper","Offline + manual","None"],answer:0},
-{question:"VR is mainly used in:",options:["Simulation","Data storage","Networking","Sensors"],answer:0},
-
-{question:"AI enables systems to:",options:["Think and learn","Ignore data","Work offline","Manual control"],answer:0},
-{question:"Machine learning is a subset of:",options:["IoT","AI","Networking","Hardware"],answer:1},
-{question:"AI is used for:",options:["Prediction","Manual work","Isolation","Offline processing"],answer:0},
-{question:"AI improves:",options:["Errors","Decision making","Manual work","Isolation"],answer:1},
-{question:"Which is an AI application?",options:["Predictive maintenance","Paper logs","Manual tracking","Isolation"],answer:0},
-{question:"AI requires:",options:["Data","Paper","Manual work","Isolation"],answer:0},
-{question:"Deep learning is part of:",options:["Networking","AI","IoT","Hardware"],answer:1},
-{question:"AI systems are:",options:["Static","Adaptive","Manual","Offline"],answer:1},
-{question:"AI reduces:",options:["Efficiency","Human intervention","Automation","Connectivity"],answer:1},
-{question:"AI is used in:",options:["Smart factories","Manual systems","Offline systems","Paper logs"],answer:0},
-
-{question:"Big Data refers to:",options:["Small data","Large and complex datasets","Manual data","Offline data"],answer:1},
-{question:"Big Data is characterized by:",options:["2Vs","3Vs","5Vs","1V"],answer:2},
-{question:"Which is NOT a V of Big Data?",options:["Volume","Velocity","Variety","Voltage"],answer:3},
-{question:"Big Data analytics helps in:",options:["Prediction","Manual work","Isolation","Offline processing"],answer:0},
-{question:"Data-driven decisions are:",options:["Inefficient","Effective","Manual","Offline"],answer:1},
-{question:"Hadoop is used for:",options:["Data storage & processing","Sensors","Networking","Actuation"],answer:0},
-{question:"Big Data improves:",options:["Insights","Errors","Manual work","Isolation"],answer:0},
-{question:"Analytics converts data into:",options:["Noise","Information","Errors","Isolation"],answer:1},
-{question:"Real-time analytics enables:",options:["Delayed decisions","Instant decisions","Manual work","Isolation"],answer:1},
-{question:"Big Data is essential for:",options:["Industry 4.0","Manual systems","Offline systems","Paper logs"],answer:0},
-{question:"What is the main objective of cybersecurity in Industry 4.0?",options:["Increase data size","Protect systems and data","Reduce automation","Increase latency"],answer:1},
-{question:"Which of the following is a common cyber threat?",options:["Data visualization","Malware","Networking","Automation"],answer:1},
-{question:"Confidentiality ensures:",options:["Data availability","Data secrecy","Data speed","Data duplication"],answer:1},
-{question:"Integrity in cybersecurity means:",options:["Data secrecy","Data accuracy and consistency","Data speed","Data storage"],answer:1},
-{question:"Availability ensures:",options:["Data is always accessible","Data is hidden","Data is deleted","Data is duplicated"],answer:0},
-{question:"Which attack targets system availability?",options:["Phishing","DoS attack","Malware","Spyware"],answer:1},
-{question:"Encryption is used for:",options:["Data deletion","Data protection","Data loss","Data duplication"],answer:1},
-{question:"Which is a network attack?",options:["Physical theft","DoS attack","Sensor failure","Power failure"],answer:1},
-{question:"Authentication verifies:",options:["Data","User identity","Network","Sensors"],answer:1},
-{question:"Authorization defines:",options:["Identity","Access rights","Data storage","Network speed"],answer:1},
-
-{question:"IIoT stands for:",options:["Intelligent Internet of Things","Industrial Internet of Things","Integrated Internet of Things","Internal Internet of Things"],answer:1},
-{question:"IIoT is mainly used in:",options:["Social media","Industrial environments","Gaming","Education only"],answer:1},
-{question:"IIoT integrates:",options:["Machines and data","Paper and logs","Manual work","Isolation"],answer:0},
-{question:"Industrial IoT focuses on:",options:["Entertainment","Efficiency and productivity","Manual work","Offline systems"],answer:1},
-{question:"IIoT systems require:",options:["No connectivity","High connectivity","Manual control","Offline work"],answer:1},
-{question:"Which is a key feature of IIoT?",options:["Isolation","Automation","Manual work","Offline systems"],answer:1},
-{question:"IIoT improves:",options:["Errors","Efficiency","Manual work","Isolation"],answer:1},
-{question:"Industrial Internet systems include:",options:["Sensors and actuators","Paper logs","Manual processes","Isolation"],answer:0},
-{question:"IIoT supports:",options:["Predictive maintenance","Manual inspection","Paper tracking","Isolation"],answer:0},
-{question:"IIoT systems are:",options:["Static","Dynamic","Manual","Offline"],answer:1},
-
-{question:"Industrial sensors are used for:",options:["Data collection","Data deletion","Manual tracking","Isolation"],answer:0},
-{question:"Industrial processes are:",options:["Static","Dynamic workflows","Manual only","Offline"],answer:1},
-{question:"Automation in industries reduces:",options:["Efficiency","Human intervention","Data usage","Connectivity"],answer:1},
-{question:"Which device controls industrial processes?",options:["Sensor","Controller","Router","Gateway"],answer:1},
-{question:"Actuators perform:",options:["Data processing","Physical action","Data storage","Networking"],answer:1},
-{question:"Industrial sensing involves:",options:["Measuring parameters","Data deletion","Manual logs","Isolation"],answer:0},
-{question:"Process control ensures:",options:["Stability and efficiency","Errors","Manual work","Isolation"],answer:0},
-{question:"Industrial processes rely on:",options:["Data","Paper","Manual work","Isolation"],answer:0},
-{question:"Which is part of process control?",options:["Feedback loop","Paper logs","Manual tracking","Isolation"],answer:0},
-{question:"Real-time monitoring enables:",options:["Delayed decisions","Instant decisions","Manual work","Isolation"],answer:1},
-
-{question:"IIoT security focuses on:",options:["Only devices","End-to-end protection","Only network","Only data"],answer:1},
-{question:"Which is a major challenge in IIoT security?",options:["High power devices","Resource constraints","Unlimited memory","No connectivity"],answer:1},
-{question:"Data protection includes:",options:["Encryption","Manual logs","Isolation","Offline work"],answer:0},
-{question:"Secure communication requires:",options:["Encryption protocols","Manual work","Paper logs","Isolation"],answer:0},
-{question:"Device security ensures:",options:["Physical protection","Manual control","Offline systems","Isolation"],answer:0},
-{question:"Network security prevents:",options:["Unauthorized access","Data usage","Automation","Connectivity"],answer:0},
-{question:"Which is a security layer?",options:["Device","Network","Application","All of the above"],answer:3},
-{question:"Security risks include:",options:["Cyber attacks","Data analytics","Automation","Connectivity"],answer:0},
-{question:"Trustworthy IIoT includes:",options:["Security only","Privacy and reliability","Manual systems","Offline systems"],answer:1},
-{question:"Security management ensures:",options:["Risk handling","Data deletion","Manual work","Isolation"],answer:0},
-
-{question:"Predictive maintenance uses:",options:["Sensors and analytics","Paper logs","Manual tracking","Isolation"],answer:0},
-{question:"IIoT improves:",options:["Productivity","Errors","Manual work","Isolation"],answer:0},
-{question:"Which ensures system reliability?",options:["Security","Manual work","Isolation","Paper logs"],answer:0},
-{question:"Industrial automation depends on:",options:["Data","Paper","Manual work","Isolation"],answer:0},
-{question:"IIoT systems enable:",options:["Real-time monitoring","Manual tracking","Offline work","Isolation"],answer:0},
-{question:"Cybersecurity protects against:",options:["Attacks","Data","Automation","Connectivity"],answer:0},
-{question:"Industrial IoT systems are:",options:["Connected","Isolated","Manual","Offline"],answer:0},
-{question:"Data-driven systems are:",options:["Efficient","Manual","Offline","Isolated"],answer:0},
-{question:"IIoT enhances:",options:["Decision making","Manual work","Isolation","Errors"],answer:0},
-{question:"Security ensures:",options:["Safe operations","Manual processes","Isolation","Offline work"],answer:0},
-
-{question:"In IIoT-enabled industrial processes, the primary role of feedback loops is to:",options:["Increase latency","Enable adaptive control and optimization","Store historical data","Replace sensors"],answer:1},
-{question:"Which factor most critically differentiates industrial processes in IIoT from traditional automation?",options:["Manual monitoring","Real-time data-driven decision making","Paper-based tracking","Offline processing"],answer:1},
-{question:"A delay in sensor-to-actuator communication in an IIoT system primarily affects:",options:["Data storage","Process stability","Network topology","Business model"],answer:1},
-{question:"In a closed-loop industrial system, incorrect feedback can lead to:",options:["Improved efficiency","System instability","Reduced automation","Data redundancy"],answer:1},
-{question:"Which of the following best represents a time-critical industrial process?",options:["Batch reporting","Real-time control system","Data archiving","Offline analytics"],answer:1},
-{question:"In IIoT, process optimization primarily depends on:",options:["Static rules","Real-time analytics and control","Manual inspection","Historical logs only"],answer:1},
-{question:"Which layer directly interacts with physical industrial processes?",options:["Business layer","Application layer","Perception layer","Cloud layer"],answer:2},
-{question:"A failure in actuation primarily results in:",options:["Incorrect sensing","Inability to execute control actions","Data inconsistency","Network congestion"],answer:1},
-{question:"Industrial process automation requires synchronization between:",options:["Sensors and data centers only","Sensing, communication, and actuation","Cloud and business models only","Storage and visualization"],answer:1},
-{question:"Which parameter is most critical in real-time industrial control systems?",options:["Storage capacity","Latency","File size","Data format"],answer:1},
-
-{question:"IIoT business models primarily shift from product-based to:",options:["Hardware-only models","Service-oriented models","Manual service models","Offline models"],answer:1},
-{question:"The concept of Product-as-a-Service implies:",options:["Selling products once","Continuous service delivery over product lifecycle","Manual product usage","Offline product access"],answer:1},
-{question:"Which factor enables new revenue streams in IIoT?",options:["Manual tracking","Data monetization","Paper records","Isolation"],answer:1},
-{question:"A predictive maintenance service model relies heavily on:",options:["Static data","Real-time sensor data","Manual logs","Offline reports"],answer:1},
-{question:"Which is a key challenge in IIoT business models?",options:["Unlimited data","Data ownership and privacy","Manual processing","Offline systems"],answer:1},
-{question:"Subscription-based IIoT services depend on:",options:["One-time sales","Continuous data-driven services","Manual intervention","Offline systems"],answer:1},
-{question:"Which business model is most aligned with smart factories?",options:["Static production","Outcome-based model","Manual service model","Offline production"],answer:1},
-{question:"Value creation in IIoT is primarily driven by:",options:["Hardware only","Data and analytics","Manual work","Isolation"],answer:1},
-{question:"Which stakeholder benefits most from IIoT analytics?",options:["Only customers","Entire ecosystem","Only operators","Only manufacturers"],answer:1},
-{question:"IIoT business transformation is mainly enabled by:",options:["Connectivity and data integration","Manual tracking","Paper systems","Isolation"],answer:0},
-
-{question:"IIoT reference architecture provides:",options:["Hardware design only","Standardized framework for system design","Manual processes","Offline systems"],answer:1},
-{question:"The purpose of reference architecture is to:",options:["Increase complexity","Ensure interoperability","Reduce automation","Eliminate networking"],answer:1},
-{question:"Which layer handles data processing in IIoT architecture?",options:["Perception","Network","Processing layer","Business"],answer:2},
-{question:"In IIoT architecture, edge computing is located:",options:["Only in cloud","Near data source","Only in business layer","Offline"],answer:1},
-{question:"A key feature of IIoT architecture is:",options:["Isolation","Scalability","Manual operation","Offline processing"],answer:1},
-{question:"Which layer is responsible for decision making?",options:["Perception","Network","Application/Business","Sensor layer"],answer:2},
-{question:"Data flow in IIoT architecture is typically:",options:["Random","Structured and layered","Manual","Offline"],answer:1},
-{question:"Interoperability ensures:",options:["Devices cannot communicate","Different systems can work together","Manual processes","Isolation"],answer:1},
-{question:"Which layer ensures communication between devices?",options:["Perception","Network","Business","Application"],answer:1},
-{question:"Reference architecture improves:",options:["System design efficiency","Manual work","Isolation","Offline systems"],answer:0},
-
-{question:"Edge computing reduces dependency on:",options:["Sensors","Cloud","Actuators","Networks"],answer:1},
-{question:"Cloud computing in IIoT is mainly used for:",options:["Real-time control","Data storage and analytics","Sensing","Actuation"],answer:1},
-{question:"Which architecture supports distributed processing?",options:["Centralized","Distributed IIoT architecture","Manual","Offline"],answer:1},
-{question:"Latency-sensitive applications require:",options:["Cloud-only processing","Edge computing","Offline systems","Manual control"],answer:1},
-{question:"Integration of IT and OT enables:",options:["Isolation","Seamless data flow","Manual work","Offline systems"],answer:1},
-{question:"Which component manages data flow across layers?",options:["Sensor","Middleware","Actuator","Paper logs"],answer:1},
-{question:"Data aggregation is performed to:",options:["Increase redundancy","Reduce data volume","Increase latency","Manual processing"],answer:1},
-{question:"Which system ensures coordination between devices?",options:["Control system","Paper logs","Manual work","Offline system"],answer:0},
-{question:"IIoT architecture supports:",options:["Static systems","Dynamic systems","Manual processes","Offline work"],answer:1},
-{question:"Which feature is critical for scalability?",options:["Fixed design","Modular architecture","Manual system","Offline system"],answer:1},
-
-{question:"A factory offering machine uptime guarantee is an example of:",options:["Product-based model","Outcome-based model","Manual model","Offline model"],answer:1},
-{question:"Real-time analytics in IIoT helps in:",options:["Delayed decisions","Immediate optimization","Manual control","Isolation"],answer:1},
-{question:"A layered architecture improves:",options:["Complexity","Manageability","Manual work","Isolation"],answer:1},
-{question:"Predictive analytics relies on:",options:["Historical + real-time data","Manual logs","Offline systems","Isolation"],answer:0},
-{question:"Business value in IIoT comes from:",options:["Data insights","Manual processes","Isolation","Offline work"],answer:0},
-{question:"Which architecture component ensures scalability?",options:["Fixed hardware","Modular layers","Manual system","Offline system"],answer:1},
-{question:"A failure in network layer affects:",options:["Only sensors","Communication","Only business logic","Storage only"],answer:1},
-{question:"Data-driven IIoT systems are:",options:["Inefficient","Adaptive","Manual","Offline"],answer:1},
-{question:"IIoT architecture supports:",options:["Real-time operations","Manual operations","Offline work","Isolation"],answer:0},
-{question:"The ultimate goal of IIoT business models is:",options:["Data deletion","Value creation through data","Manual work","Isolation"],answer:1},
-{question:"In IIoT sensing, the primary challenge is:",options:["Unlimited power availability","Accurate data acquisition under constraints","High storage capacity","Manual data collection"],answer:1},
-{question:"Sensor calibration is mainly required to:",options:["Increase speed","Improve accuracy","Reduce connectivity","Store data"],answer:1},
-{question:"Noise in sensor data primarily affects:",options:["Data size","Data reliability","Network topology","Storage"],answer:1},
-{question:"Which factor most impacts sensor lifetime?",options:["Color","Power consumption","Data format","Network protocol"],answer:1},
-{question:"A smart sensor differs from a traditional sensor by:",options:["Having no processing capability","Integrated processing and communication","Manual operation","Offline usage"],answer:1},
-{question:"Redundant sensors are used to:",options:["Increase cost only","Improve reliability and fault tolerance","Reduce accuracy","Eliminate data"],answer:1},
-{question:"Sampling rate of a sensor determines:",options:["Data type","Frequency of data collection","Network speed","Storage capacity"],answer:1},
-{question:"Which condition leads to sensor drift?",options:["Stable environment","Environmental changes over time","Constant power supply","No usage"],answer:1},
-{question:"Edge processing in sensing helps to:",options:["Increase latency","Reduce data transmission load","Eliminate sensors","Increase noise"],answer:1},
-{question:"In industrial sensing, real-time constraints require:",options:["Delayed data","Timely and accurate measurements","Offline processing","Manual control"],answer:1},
-
-{question:"Multi-sensor fusion is used to:",options:["Reduce data","Combine multiple sensor outputs for better accuracy","Eliminate sensors","Increase noise"],answer:1},
-{question:"Which is a limitation of low-cost sensors?",options:["High accuracy","Limited precision","Unlimited power","High reliability"],answer:1},
-{question:"Sensor data preprocessing includes:",options:["Cleaning and filtering","Manual logging","Data deletion","Isolation"],answer:0},
-{question:"Which component converts analog signals to digital?",options:["DAC","ADC","Router","Gateway"],answer:1},
-{question:"In IIoT, sensing layer interacts with:",options:["Physical environment","Cloud only","Business layer","Storage"],answer:0},
-{question:"Which factor improves sensing reliability?",options:["Redundancy","Isolation","Manual logs","Offline systems"],answer:0},
-{question:"Sensor latency impacts:",options:["Data format","Real-time response","Storage","Network topology"],answer:1},
-{question:"Smart sensing systems are:",options:["Static","Adaptive","Manual","Offline"],answer:1},
-{question:"Which is critical for industrial sensing?",options:["Accuracy and reliability","Color and size","Manual control","Offline systems"],answer:0},
-{question:"Sensor networks are designed for:",options:["Data acquisition and transmission","Manual work","Isolation","Offline processing"],answer:0},
-
-{question:"Connectivity in IIoT ensures:",options:["Isolation","Communication between devices","Manual work","Offline processing"],answer:1},
-{question:"Which protocol is lightweight for IoT?",options:["HTTP","MQTT","FTP","SMTP"],answer:1},
-{question:"MQTT operates on:",options:["Request-response","Publish-subscribe","Peer-to-peer","Ring topology"],answer:1},
-{question:"CoAP is designed for:",options:["High bandwidth systems","Constrained devices","Manual systems","Offline systems"],answer:1},
-{question:"Which protocol uses UDP?",options:["HTTP","CoAP","FTP","SMTP"],answer:1},
-{question:"Connectivity choice depends on:",options:["Application requirements","Color","Manual work","Offline systems"],answer:0},
-{question:"LPWAN is used for:",options:["Short-range communication","Long-range low-power communication","High-speed LAN","Wired networks"],answer:1},
-{question:"Which factor affects connectivity performance?",options:["Latency","Color","Shape","Manual logs"],answer:0},
-{question:"Wireless communication is preferred for:",options:["Flexibility","Manual systems","Offline systems","Isolation"],answer:0},
-{question:"Which technology supports short-range communication?",options:["LPWAN","BLE","Satellite","LTE"],answer:1},
-
-{question:"High latency in IIoT systems leads to:",options:["Faster response","Delayed control actions","Better accuracy","Increased storage"],answer:1},
-{question:"Reliability in communication ensures:",options:["Data loss","Successful data delivery","Manual work","Isolation"],answer:1},
-{question:"QoS controls:",options:["Data format","Network performance","Manual work","Storage"],answer:1},
-{question:"Which is a trade-off in connectivity?",options:["Power vs range","Color vs size","Manual vs automatic","Offline vs online"],answer:0},
-{question:"Edge devices reduce:",options:["Processing","Cloud dependency","Sensors","Connectivity"],answer:1},
-{question:"Bandwidth determines:",options:["Data transfer rate","Sensor accuracy","Storage","Manual work"],answer:0},
-{question:"Packet loss affects:",options:["Data reliability","Color","Size","Manual logs"],answer:0},
-{question:"Network congestion leads to:",options:["Faster communication","Delays and packet loss","Better performance","Manual work"],answer:1},
-{question:"Secure communication requires:",options:["Encryption","Manual logs","Isolation","Offline systems"],answer:0},
-{question:"Which protocol is best for real-time IoT?",options:["MQTT","FTP","SMTP","HTTP"],answer:0},
-
-{question:"A low-power wide-area network is ideal for:",options:["Smart cities","Manual systems","Offline work","Isolation"],answer:0},
-{question:"Sensor + connectivity integration enables:",options:["Automation","Manual work","Isolation","Offline systems"],answer:0},
-{question:"Which is critical for industrial communication?",options:["Reliability","Color","Shape","Manual logs"],answer:0},
-{question:"Connectivity failures result in:",options:["Better performance","Data loss and delays","Increased efficiency","Manual work"],answer:1},
-{question:"Real-time systems require:",options:["High latency","Low latency","Manual control","Offline processing"],answer:1},
-{question:"Data transmission depends on:",options:["Network quality","Color","Shape","Manual logs"],answer:0},
-{question:"Wireless networks are:",options:["Flexible","Static","Manual","Offline"],answer:0},
-{question:"IoT connectivity enables:",options:["Device interaction","Manual work","Isolation","Offline systems"],answer:0},
-{question:"End-to-end communication requires:",options:["Sensors only","Full network stack","Manual logs","Offline systems"],answer:1},
-{question:"Key enablers of IIoT include:",options:["Sensing and connectivity","Manual systems","Offline work","Isolation"],answer:0},
-
-// Week 7 starts
-
-{question:"In multi-hop IoT networks, the primary advantage is:",options:["Increased latency","Extended network coverage","Reduced reliability","Manual routing"],answer:1},
-{question:"A failure in intermediate nodes leads to:",options:["Improved routing","Communication breakdown","Reduced latency","Better throughput"],answer:1},
-{question:"Mesh topology provides:",options:["Single path communication","Multiple redundant paths","Manual control","Offline communication"],answer:1},
-{question:"Which factor is critical for routing efficiency?",options:["Color","Path optimization","Manual logs","Storage"],answer:1},
-{question:"Congestion control is required to:",options:["Increase packet loss","Manage network traffic","Reduce connectivity","Disable routing"],answer:1},
-{question:"Deterministic communication ensures:",options:["Random delays","Predictable latency","High packet loss","Manual routing"],answer:1},
-{question:"Which protocol supports deterministic scheduling?",options:["HTTP","6TiSCH","FTP","SMTP"],answer:1},
-{question:"Network reliability improves with:",options:["Single node dependency","Redundant paths","Manual routing","Offline systems"],answer:1},
-{question:"Packet collisions occur due to:",options:["High latency","Shared communication medium","Data storage","Processing delay"],answer:1},
-{question:"Time synchronization is critical for:",options:["Data storage","Coordinated communication","Manual control","Offline systems"],answer:1},
-
-{question:"Data processing converts raw data into:",options:["Noise","Useful information","Errors","Storage only"],answer:1},
-{question:"Edge processing reduces:",options:["Computation","Data transmission to cloud","Sensors","Connectivity"],answer:1},
-{question:"Which layer handles primary data processing?",options:["Perception","Processing","Business","Network"],answer:1},
-{question:"Real-time processing is required for:",options:["Batch systems","Time-critical applications","Offline analysis","Manual logs"],answer:1},
-{question:"Key challenge in IIoT processing?",options:["Unlimited resources","Resource constraints","Manual work","Offline systems"],answer:1},
-{question:"Data filtering is used to:",options:["Increase noise","Remove irrelevant data","Increase latency","Store data"],answer:1},
-{question:"Stream processing is suitable for:",options:["Static data","Continuous data flow","Manual logs","Offline systems"],answer:1},
-{question:"Which improves processing efficiency?",options:["Parallel processing","Manual processing","Offline systems","Isolation"],answer:0},
-{question:"Cloud processing is ideal for:",options:["Real-time control","Heavy data analytics","Sensor operation","Actuation"],answer:1},
-{question:"Data aggregation helps in:",options:["Increasing data volume","Reducing data redundancy","Increasing latency","Manual processing"],answer:1},
-
-{question:"Latency-sensitive tasks should be processed at:",options:["Cloud","Edge","Storage","Business layer"],answer:1},
-{question:"Batch processing is characterized by:",options:["Real-time execution","Delayed processing","Continuous flow","Instant response"],answer:1},
-{question:"Processing delay affects:",options:["Data size","System response time","Storage","Color"],answer:1},
-{question:"Which architecture supports distributed processing?",options:["Centralized","Distributed","Manual","Offline"],answer:1},
-{question:"Data compression is used to:",options:["Increase size","Reduce bandwidth usage","Increase latency","Manual processing"],answer:1},
-{question:"Which factor impacts processing speed?",options:["CPU capability","Color","Shape","Manual logs"],answer:0},
-{question:"Edge devices handle:",options:["Heavy analytics only","Preliminary data processing","Manual logs","Offline systems"],answer:1},
-{question:"Which is a trade-off in processing?",options:["Speed vs accuracy","Color vs size","Manual vs automatic","Offline vs online"],answer:0},
-{question:"Data pipelines are used for:",options:["Manual data entry","Automated data flow processing","Offline storage","Isolation"],answer:1},
-{question:"Processing systems must ensure:",options:["Data loss","Data integrity","Manual work","Isolation"],answer:1},
-
-{question:"Process control ensures:",options:["Random outputs","Desired system behavior","Manual operation","Offline systems"],answer:1},
-{question:"A control system consists of:",options:["Sensors only","Sensors, controller, actuators","Cloud only","Network only"],answer:1},
-{question:"Open-loop systems lack:",options:["Input","Feedback","Output","Control"],answer:1},
-{question:"Closed-loop systems use:",options:["Manual control","Feedback","Offline processing","Isolation"],answer:1},
-{question:"Feedback improves:",options:["Accuracy","Errors","Manual work","Isolation"],answer:0},
-{question:"Control systems aim to:",options:["Increase deviation","Minimize error","Manual work","Isolation"],answer:1},
-{question:"Stability means:",options:["Random output","Consistent performance","Manual operation","Offline systems"],answer:1},
-{question:"Which system responds automatically?",options:["Open-loop","Closed-loop","Manual","Offline"],answer:1},
-{question:"Industrial automation relies on:",options:["Control systems","Manual logs","Offline systems","Isolation"],answer:0},
-{question:"Real-time control requires:",options:["High latency","Low latency","Manual control","Offline processing"],answer:1},
-
-{question:"A smart thermostat is an example of:",options:["Open-loop system","Closed-loop system","Manual system","Offline system"],answer:1},
-{question:"Failure in feedback loop leads to:",options:["Stability","Instability","Efficiency","Automation"],answer:1},
-{question:"Edge + processing integration enables:",options:["Faster response","Delayed response","Manual work","Isolation"],answer:0},
-{question:"Distributed processing improves:",options:["Scalability","Manual work","Isolation","Offline systems"],answer:0},
-{question:"Control systems depend on:",options:["Data","Paper","Manual logs","Isolation"],answer:0},
-{question:"Processing + control enables:",options:["Automation","Manual work","Isolation","Offline systems"],answer:0},
-{question:"Critical for IIoT control systems?",options:["Timing","Color","Shape","Manual logs"],answer:0},
-{question:"Data-driven control systems are:",options:["Adaptive","Static","Manual","Offline"],answer:0},
-{question:"Smart control systems can:",options:["Self-adjust","Ignore data","Work offline","Be static"],answer:0},
-{question:"Goal of processing + control is:",options:["Automation and optimization","Manual work","Isolation","Offline systems"],answer:0},
-{question:"The primary goal of IIoT analytics is to:",options:["Store data","Convert data into actionable insights","Increase latency","Manual processing"],answer:1},
-{question:"Which type of analytics answers What happened?",options:["Predictive","Prescriptive","Descriptive","Diagnostic"],answer:2},
-{question:"Predictive analytics is used to:",options:["Analyze past data only","Forecast future outcomes","Store data","Delete data"],answer:1},
-{question:"Prescriptive analytics helps in:",options:["Data storage","Decision recommendations","Data collection","Networking"],answer:1},
-{question:"Real-time analytics requires:",options:["High latency","Low latency processing","Manual processing","Offline systems"],answer:1},
-{question:"Which is NOT part of analytics pipeline?",options:["Data collection","Data processing","Data visualization","Manual logging"],answer:3},
-{question:"Analytics transforms data into:",options:["Noise","Information","Errors","Storage"],answer:1},
-{question:"Which stage cleans raw data?",options:["Visualization","Preprocessing","Storage","Networking"],answer:1},
-{question:"Which type of analytics answers Why did it happen?",options:["Descriptive","Diagnostic","Predictive","Prescriptive"],answer:1},
-{question:"Data visualization helps in:",options:["Data deletion","Better understanding of insights","Increasing latency","Manual processing"],answer:1},
-
-{question:"Machine learning enables systems to:",options:["Follow fixed rules only","Learn from data","Ignore data","Work offline"],answer:1},
-{question:"Supervised learning uses:",options:["Unlabeled data","Labeled data","Random data","No data"],answer:1},
-{question:"Unsupervised learning is used for:",options:["Classification with labels","Clustering without labels","Prediction only","Data storage"],answer:1},
-{question:"Which is a supervised learning algorithm?",options:["K-means","Linear regression","PCA","Clustering"],answer:1},
-{question:"Overfitting occurs when:",options:["Model is too simple","Model learns noise in training data","Data is clean","Model ignores data"],answer:1},
-{question:"Which improves model generalization?",options:["Overfitting","Regularization","Noise","Manual tuning"],answer:1},
-{question:"Training data is used to:",options:["Test model","Build model","Delete data","Store data"],answer:1},
-{question:"Testing data is used to:",options:["Train model","Evaluate model","Delete data","Process data"],answer:1},
-{question:"Which is an example of classification?",options:["Predicting temperature","Spam detection","Data clustering","Data storage"],answer:1},
-{question:"Regression is used for:",options:["Categorical output","Continuous output","Data clustering","Networking"],answer:1},
-
-{question:"Bias-variance tradeoff refers to:",options:["Data storage","Model complexity vs generalization","Network performance","Manual work"],answer:1},
-{question:"High bias leads to:",options:["Overfitting","Underfitting","Perfect model","Data loss"],answer:1},
-{question:"Feature selection helps in:",options:["Increasing noise","Improving model performance","Data deletion","Manual processing"],answer:1},
-{question:"Which metric is used for classification accuracy?",options:["MSE","Accuracy","Latency","Throughput"],answer:1},
-{question:"Which algorithm is used for clustering?",options:["K-means","Linear regression","Decision tree","Logistic regression"],answer:0},
-{question:"Deep learning is based on:",options:["Neural networks","Networking","Sensors","Actuators"],answer:0},
-{question:"Training time depends on:",options:["Data size","Color","Shape","Manual logs"],answer:0},
-{question:"Which problem occurs due to insufficient data?",options:["Overfitting","Underfitting","Perfect model","Noise"],answer:1},
-{question:"Data normalization helps in:",options:["Scaling data","Increasing noise","Data deletion","Manual processing"],answer:0},
-{question:"Which is critical for ML models?",options:["Data quality","Color","Shape","Manual logs"],answer:0},
-
-{question:"Cloud computing provides:",options:["Only storage","On-demand resources","Manual processing","Offline systems"],answer:1},
-{question:"Which is a cloud service model?",options:["SaaS","LAN","WAN","BLE"],answer:0},
-{question:"IaaS provides:",options:["Infrastructure","Software only","Networking only","Sensors"],answer:0},
-{question:"PaaS provides:",options:["Platform for development","Hardware only","Manual systems","Offline tools"],answer:0},
-{question:"SaaS provides:",options:["Ready-to-use applications","Hardware","Networking","Sensors"],answer:0},
-{question:"Cloud scalability means:",options:["Fixed resources","Flexible resource allocation","Manual systems","Offline processing"],answer:1},
-{question:"Cloud computing reduces:",options:["Cost","Automation","Connectivity","Data"],answer:0},
-{question:"Which is a cloud deployment model?",options:["Public cloud","Sensor network","Manual system","Offline system"],answer:0},
-{question:"Cloud supports:",options:["Big data analytics","Manual work","Isolation","Offline processing"],answer:0},
-{question:"Cloud latency is higher than:",options:["Edge computing","Sensors","Actuators","Storage"],answer:0},
-
-{question:"Edge + Cloud integration provides:",options:["Faster + scalable processing","Manual work","Isolation","Offline systems"],answer:0},
-{question:"ML in IIoT is used for:",options:["Prediction","Manual work","Isolation","Offline systems"],answer:0},
-{question:"Real-time analytics depends on:",options:["Low latency","High latency","Manual work","Offline processing"],answer:0},
-{question:"Data-driven decisions are:",options:["Inefficient","Effective","Manual","Offline"],answer:1},
-{question:"Cloud + analytics enables:",options:["Smart decision making","Manual work","Isolation","Offline systems"],answer:0},
-{question:"ML models improve with:",options:["More data","Less data","Manual work","Isolation"],answer:0},
-{question:"Predictive maintenance uses:",options:["ML + analytics","Manual logs","Offline systems","Isolation"],answer:0},
-{question:"Big data processing requires:",options:["Cloud","Manual logs","Offline systems","Isolation"],answer:0},
-{question:"Analytics pipeline ends with:",options:["Visualization","Data collection","Storage","Networking"],answer:0},
-{question:"Goal of analytics + ML is:",options:["Insight + prediction","Manual work","Isolation","Offline systems"],answer:0},
-{"question":"Fog computing primarily extends cloud computing to:","options":["End users","Network edge","Data centers only","Offline systems"],"answer":1},
-{"question":"The main advantage of fog computing is:","options":["High latency","Reduced latency","Increased cost","Manual processing"],"answer":1},
-{"question":"Fog nodes are typically located:","options":["Only in cloud","Between cloud and devices","Only in sensors","Offline"],"answer":1},
-{"question":"Which application benefits most from fog computing?","options":["Batch processing","Real-time control systems","Data storage","Offline analytics"],"answer":1},
-{"question":"Fog computing reduces:","options":["Processing","Bandwidth usage","Sensors","Connectivity"],"answer":1},
-{"question":"Which is a key feature of fog computing?","options":["Centralization","Decentralization","Manual control","Offline processing"],"answer":1},
-{"question":"Fog computing is best suited for:","options":["Latency-tolerant systems","Latency-sensitive systems","Offline systems","Manual systems"],"answer":1},
-{"question":"Which layer does fog computing belong to?","options":["Perception","Intermediate layer","Business","Application"],"answer":1},
-{"question":"Fog computing supports:","options":["Real-time analytics","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"Compared to cloud, fog computing provides:","options":["Higher latency","Faster response","Less flexibility","No processing"],"answer":1},
-
-{"question":"R and Julia are mainly used for:","options":["Networking","Data analysis and computation","Sensors","Actuators"],"answer":1},
-{"question":"Which language is optimized for high-performance numerical computing?","options":["R","Julia","Python","C"],"answer":1},
-{"question":"R is widely used for:","options":["Networking","Statistical analysis","Hardware design","Actuation"],"answer":1},
-{"question":"Which is a key advantage of Julia?","options":["Slow execution","High performance with simplicity","Manual processing","Offline systems"],"answer":1},
-{"question":"Data visualization is commonly done using:","options":["R","Sensors","Routers","Gateways"],"answer":0},
-{"question":"R language is mainly used in:","options":["Embedded systems","Data science","Networking","Actuation"],"answer":1},
-{"question":"Julia combines:","options":["Speed and ease of use","Manual processing","Offline systems","Isolation"],"answer":0},
-{"question":"Which is NOT a feature of R?","options":["Statistical tools","Data visualization","Real-time control","Data analysis"],"answer":2},
-{"question":"Julia is preferred when:","options":["High computation speed is required","Manual work is needed","Offline systems are used","Isolation"],"answer":0},
-{"question":"Data analysis tools are used to:","options":["Delete data","Extract insights","Increase noise","Manual processing"],"answer":1},
-
-{"question":"Hadoop is mainly used for:","options":["Networking","Big data storage and processing","Sensors","Actuators"],"answer":1},
-{"question":"HDFS stands for:","options":["High Data File System","Hadoop Distributed File System","Hybrid Data System","Hardware Data System"],"answer":1},
-{"question":"Hadoop follows which processing model?","options":["Real-time","Batch processing","Manual processing","Offline"],"answer":1},
-{"question":"MapReduce is used for:","options":["Data storage","Data processing","Networking","Actuation"],"answer":1},
-{"question":"Hadoop provides:","options":["Scalability","Manual processing","Isolation","Offline systems"],"answer":0},
-{"question":"Distributed storage means:","options":["Single node storage","Multiple node storage","Manual storage","Offline storage"],"answer":1},
-{"question":"Fault tolerance in Hadoop is achieved by:","options":["Data replication","Manual logs","Isolation","Offline systems"],"answer":0},
-{"question":"Hadoop is suitable for:","options":["Small data","Large-scale data","Manual data","Offline data"],"answer":1},
-{"question":"Which is a limitation of Hadoop?","options":["High latency","Real-time processing","Scalability","Fault tolerance"],"answer":0},
-{"question":"Data management includes:","options":["Storage + processing","Manual logs","Isolation","Offline systems"],"answer":0},
-
-{"question":"Data center networks are designed for:","options":["High performance","Manual work","Offline systems","Isolation"],"answer":0},
-{"question":"Which factor is critical in data centers?","options":["Latency","Color","Shape","Manual logs"],"answer":0},
-{"question":"Data center architecture supports:","options":["Scalability","Manual work","Offline systems","Isolation"],"answer":0},
-{"question":"Which topology is commonly used in data centers?","options":["Star","Tree","Fat-tree","Ring"],"answer":2},
-{"question":"Load balancing ensures:","options":["Uneven traffic","Efficient resource utilization","Manual work","Isolation"],"answer":1},
-{"question":"Data center switches handle:","options":["Data routing","Manual logs","Isolation","Offline systems"],"answer":0},
-{"question":"High bandwidth is required for:","options":["Big data applications","Manual work","Offline systems","Isolation"],"answer":0},
-{"question":"Data centers support:","options":["Cloud computing","Manual systems","Offline systems","Isolation"],"answer":0},
-{"question":"Which improves data center efficiency?","options":["Virtualization","Manual logs","Isolation","Offline systems"],"answer":0},
-{"question":"Data center networks are:","options":["Static","Dynamic","Manual","Offline"],"answer":1},
-
-{"question":"SDN separates:","options":["Data and sensors","Control plane and data plane","Manual and automatic","Online and offline"],"answer":1},
-{"question":"SDN controller manages:","options":["Data flow","Sensors","Actuators","Manual logs"],"answer":0},
-{"question":"SDN provides:","options":["Static control","Centralized control","Manual control","Offline systems"],"answer":1},
-{"question":"OpenFlow is used in:","options":["IoT sensors","SDN communication","Manual logs","Offline systems"],"answer":1},
-{"question":"SDN improves:","options":["Flexibility","Manual work","Isolation","Offline systems"],"answer":0},
-{"question":"Network programmability is enabled by:","options":["SDN","Sensors","Actuators","Manual logs"],"answer":0},
-{"question":"SDN allows:","options":["Dynamic network configuration","Manual configuration","Offline systems","Isolation"],"answer":0},
-{"question":"Which is a benefit of SDN?","options":["Reduced control","Improved management","Manual work","Isolation"],"answer":1},
-{"question":"SDN is used in:","options":["Data centers","Manual systems","Offline systems","Isolation"],"answer":0},
-{"question":"SDN architecture is:","options":["Decoupled","Manual","Offline","Isolated"],"answer":0},
-
-{"question":"In SDN, the control plane is responsible for:","options":["Data forwarding","Network decision making","Data storage","Sensor operation"],"answer":1},
-{"question":"The data plane in SDN handles:","options":["Routing decisions","Packet forwarding","Control logic","Network policies"],"answer":1},
-{"question":"Centralized control in SDN can lead to:","options":["Reduced flexibility","Single point of failure","Manual control","Offline systems"],"answer":1},
-{"question":"SDN controllers communicate with devices using:","options":["MQTT","OpenFlow","HTTP","FTP"],"answer":1},
-{"question":"Which is a key advantage of SDN?","options":["Static configuration","Dynamic network management","Manual routing","Offline processing"],"answer":1},
-{"question":"SDN improves network by:","options":["Increasing complexity","Simplifying management","Manual configuration","Offline systems"],"answer":1},
-{"question":"Network virtualization in SDN allows:","options":["Physical-only networks","Multiple logical networks","Manual systems","Offline systems"],"answer":1},
-{"question":"SDN enables:","options":["Fixed routing","Programmable networks","Manual routing","Offline systems"],"answer":1},
-{"question":"A major risk in SDN is:","options":["High flexibility","Controller compromise","Low performance","Manual routing"],"answer":1},
-{"question":"SDN is widely used in:","options":["Data centers","Manual systems","Offline systems","Isolation"],"answer":0},
-
-{"question":"The primary goal of IIoT security is:","options":["Data deletion","Protect system integrity","Manual control","Offline systems"],"answer":1},
-{"question":"Which is a key security principle?","options":["CIA triad","Manual logs","Isolation","Offline systems"],"answer":0},
-{"question":"Confidentiality ensures:","options":["Data accuracy","Data secrecy","Data availability","Data storage"],"answer":1},
-{"question":"Integrity ensures:","options":["Data secrecy","Data accuracy","Data availability","Data deletion"],"answer":1},
-{"question":"Availability ensures:","options":["Data secrecy","System accessibility","Data accuracy","Data deletion"],"answer":1},
-{"question":"Authentication verifies:","options":["Data","Identity","Network","Storage"],"answer":1},
-{"question":"Encryption is used for:","options":["Data visibility","Data protection","Data deletion","Manual logs"],"answer":1},
-{"question":"Which is a common IIoT threat?","options":["Data analytics","Unauthorized access","Automation","Connectivity"],"answer":1},
-{"question":"Which layer is most vulnerable?","options":["Physical device layer","Business layer","Cloud layer","Storage layer"],"answer":0},
-{"question":"End-to-end security ensures:","options":["Partial protection","Complete data protection across system","Manual logs","Offline systems"],"answer":1},
-
-{"question":"A weak password mainly affects:","options":["Network speed","Authentication security","Data storage","Processing"],"answer":1},
-{"question":"Which attack targets availability?","options":["Data theft","DoS attack","Data modification","Encryption"],"answer":1},
-{"question":"Data tampering affects:","options":["Confidentiality","Integrity","Availability","Storage"],"answer":1},
-{"question":"Secure communication requires:","options":["Encryption + authentication","Manual logs","Isolation","Offline systems"],"answer":0},
-{"question":"Which is a challenge in IIoT security?","options":["Unlimited resources","Resource-constrained devices","Manual logs","Offline systems"],"answer":1},
-{"question":"Firmware updates help in:","options":["Increasing risk","Fixing vulnerabilities","Manual control","Offline systems"],"answer":1},
-{"question":"Which ensures secure device identity?","options":["Authentication","Storage","Networking","Manual logs"],"answer":0},
-{"question":"Network attacks exploit:","options":["Connectivity","Sensors","Storage","Manual logs"],"answer":0},
-{"question":"Which security measure protects data in transit?","options":["Encryption","Storage","Manual logs","Isolation"],"answer":0},
-{"question":"Security breaches lead to:","options":["Efficiency","Data loss","Automation","Optimization"],"answer":1},
-
-{"question":"Smart factories rely on:","options":["Manual work","Automation + data","Offline systems","Isolation"],"answer":1},
-{"question":"Predictive maintenance reduces:","options":["Efficiency","Downtime","Automation","Connectivity"],"answer":1},
-{"question":"Real-time monitoring improves:","options":["Delay","Efficiency","Manual work","Isolation"],"answer":1},
-{"question":"Which enables smart decision making in factories?","options":["Data analytics","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"Automation leads to:","options":["Increased errors","Higher productivity","Manual work","Isolation"],"answer":1},
-{"question":"Industrial robots are used for:","options":["Manual work","Automated tasks","Offline systems","Isolation"],"answer":1},
-{"question":"Smart factories are:","options":["Static","Adaptive","Manual","Offline"],"answer":1},
-{"question":"IIoT enables:","options":["Data-driven manufacturing","Manual systems","Offline systems","Isolation"],"answer":0},
-{"question":"Sensors in factories are used for:","options":["Monitoring","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"Smart factories improve:","options":["Cost","Efficiency","Manual work","Isolation"],"answer":1},
-
-{"question":"IoT in food industry helps in:","options":["Manual tracking","Supply chain monitoring","Offline systems","Isolation"],"answer":1},
-{"question":"Sensors in food industry monitor:","options":["Quality","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"Supply chain transparency leads to:","options":["Waste increase","Waste reduction","Manual work","Isolation"],"answer":1},
-{"question":"Temperature monitoring is critical for:","options":["Food safety","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"IoT improves food logistics by:","options":["Automation","Manual work","Isolation","Offline systems"],"answer":0},
-{"question":"Traceability in food supply chain ensures:","options":["Data loss","Product tracking","Manual logs","Isolation"],"answer":1},
-{"question":"Smart packaging can:","options":["Monitor conditions","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"Food spoilage can be reduced by:","options":["Monitoring systems","Manual logs","Offline systems","Isolation"],"answer":0},
-{"question":"IoT enables:","options":["Smart agriculture + supply chain","Manual systems","Offline systems","Isolation"],"answer":0},
-{"question":"Goal of IIoT in food industry is:","options":["Quality + safety","Manual work","Isolation","Offline systems"],"answer":0}
-
-];
-
-// 🔥 RENDER
-const quiz = document.getElementById("quiz");
-
-mcqs.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.className = "question";
-
-    const title = document.createElement("h3");
-    title.innerText = (index+1) + ". " + q.question;
-    div.appendChild(title);
-
-    q.options.forEach((opt, i) => {
-        const btn = document.createElement("div");
-        btn.className = "option";
-        btn.innerText = opt;
-
-        btn.onclick = () => {
-            const all = div.querySelectorAll(".option");
-            all.forEach(o => o.style.pointerEvents = "none");
-
-            if(i === q.answer){
-                btn.classList.add("correct");
-            } else {
-                btn.classList.add("wrong");
-                all[q.answer].classList.add("correct");
-            }
-        };
-
-        div.appendChild(btn);
-    });
-
-    quiz.appendChild(div);
-});
-
-</script>
+            { question: "IoT devices are:", options: ["Smart devices", "Dumb devices", "Offline devices", "Manual devices"], answer: 0 },
+
+            { question: "Which layer interacts with environment?", options: ["Network", "Perception", "Application", "Business"], answer: 1 },
+
+            { question: "IoT system requires data:", options: ["Only input", "Only output", "Both input & output", "None"], answer: 2 },
+
+            { question: "Main goal of IoT is:", options: ["Connectivity and automation", "Data deletion", "Manual work", "Isolation"], answer: 0 },
+            { question: "What distinguishes Industry 4.0 from previous industrial revolutions?", options: ["Use of steam engines", "Mass production", "Integration of cyber-physical systems", "Manual labor"], answer: 2 },
+            { question: "Industry 4.0 primarily focuses on:", options: ["Isolated machines", "Connected and intelligent systems", "Manual processes", "Mechanical tools"], answer: 1 },
+            { question: "Which component is central to Industry 4.0?", options: ["Mechanical systems", "Cyber-Physical Systems", "Human labor", "Paper-based systems"], answer: 1 },
+            { question: "The key driver of Industry 4.0 is:", options: ["Electricity", "Data and connectivity", "Steam power", "Manual work"], answer: 1 },
+            { question: "Industry 4.0 enables:", options: ["Static systems", "Decentralized decision making", "Manual control", "Offline processing"], answer: 1 },
+            { question: "Which revolution introduced automation?", options: ["Industry 1.0", "Industry 2.0", "Industry 3.0", "Industry 4.0"], answer: 2 },
+            { question: "Industry 4.0 systems are characterized by:", options: ["Low flexibility", "High adaptability", "No connectivity", "Manual processes"], answer: 1 },
+            { question: "Smart manufacturing is based on:", options: ["Manual inspection", "Data-driven processes", "Isolated systems", "Paper records"], answer: 1 },
+            { question: "Which is NOT a pillar of Industry 4.0?", options: ["IoT", "Big Data", "Typewriters", "AI"], answer: 2 },
+            { question: "Industry 4.0 integrates:", options: ["Only hardware", "Only software", "Physical and digital systems", "Manual and mechanical systems"], answer: 2 },
+
+            { question: "Sustainability in Industry 4.0 aims to:", options: ["Increase waste", "Optimize resource usage", "Increase cost", "Reduce automation"], answer: 1 },
+            { question: "Lean production focuses on:", options: ["Increasing waste", "Eliminating waste", "Increasing inventory", "Reducing efficiency"], answer: 1 },
+            { question: "Which is a principle of lean manufacturing?", options: ["Overproduction", "Just-in-time production", "Excess inventory", "Delays"], answer: 1 },
+            { question: "Industry 4.0 enhances sustainability by:", options: ["Increasing energy consumption", "Reducing efficiency", "Optimizing processes", "Ignoring data"], answer: 2 },
+            { question: "Smart factories reduce:", options: ["Automation", "Waste and downtime", "Data usage", "Connectivity"], answer: 1 },
+            { question: "Lean systems emphasize:", options: ["Complexity", "Simplicity and efficiency", "Delays", "Redundancy"], answer: 1 },
+            { question: "Sustainability assessment includes:", options: ["Only economic factors", "Environmental and social factors", "Only technical factors", "Only manual processes"], answer: 1 },
+            { question: "Industry 4.0 supports circular economy by:", options: ["Increasing waste", "Reusing resources", "Ignoring recycling", "Increasing production only"], answer: 1 },
+            { question: "Which factor improves energy efficiency in Industry 4.0?", options: ["Data analytics", "Manual tracking", "Paper logs", "Isolated systems"], answer: 0 },
+            { question: "Lean production reduces:", options: ["Productivity", "Waste", "Efficiency", "Automation"], answer: 1 },
+
+            { question: "Smart factories rely on:", options: ["Manual control", "Connected systems", "Isolated machines", "Paper records"], answer: 1 },
+            { question: "Which feature enables real-time decision making?", options: ["Data analytics", "Manual logs", "Paper records", "Offline systems"], answer: 0 },
+            { question: "Smart business models are:", options: ["Static", "Data-driven", "Manual", "Offline"], answer: 1 },
+            { question: "Which technology enables predictive maintenance?", options: ["AI and analytics", "Paper logs", "Manual inspection", "Offline tools"], answer: 0 },
+            { question: "Smart factories are characterized by:", options: ["Low connectivity", "High automation", "Manual work", "No data usage"], answer: 1 },
+            { question: "Digital twins are used for:", options: ["Manual design", "Virtual simulation", "Data storage only", "Networking"], answer: 1 },
+            { question: "Which improves supply chain visibility?", options: ["IoT", "Paper logs", "Manual tracking", "Offline systems"], answer: 0 },
+            { question: "Smart factories enable:", options: ["Delayed response", "Real-time monitoring", "No automation", "Manual control"], answer: 1 },
+            { question: "Which factor is critical for smart business?", options: ["Data", "Paper records", "Manual logs", "Isolation"], answer: 0 },
+            { question: "Industry 4.0 promotes:", options: ["Centralized rigid systems", "Flexible production", "Manual processes", "Offline work"], answer: 1 },
+
+            { question: "Industry 4.0 systems are:", options: ["Reactive", "Proactive", "Manual", "Offline"], answer: 1 },
+            { question: "Real-time data enables:", options: ["Delayed decisions", "Immediate decisions", "No decisions", "Manual control"], answer: 1 },
+            { question: "Cyber-physical integration enables:", options: ["Isolation", "Automation", "Manual work", "Offline systems"], answer: 1 },
+            { question: "Industry 4.0 reduces:", options: ["Efficiency", "Downtime", "Automation", "Connectivity"], answer: 1 },
+            { question: "Smart manufacturing depends on:", options: ["Data", "Paper", "Manual work", "Isolation"], answer: 0 },
+            { question: "Intelligent systems are capable of:", options: ["Learning", "Ignoring data", "Manual work", "Isolation"], answer: 0 },
+            { question: "Which enables adaptive systems?", options: ["AI", "Paper logs", "Manual work", "Isolation"], answer: 0 },
+            { question: "Smart factories use:", options: ["Static systems", "Dynamic systems", "Manual processes", "Offline tools"], answer: 1 },
+            { question: "Which improves productivity?", options: ["Automation", "Manual work", "Isolation", "Paper logs"], answer: 0 },
+            { question: "Industry 4.0 systems are:", options: ["Independent", "Interconnected", "Offline", "Manual"], answer: 1 },
+
+            { question: "A factory using sensors + analytics is an example of:", options: ["Industry 2.0", "Industry 3.0", "Industry 4.0", "Industry 1.0"], answer: 2 },
+            { question: "Predictive maintenance reduces:", options: ["Failures", "Efficiency", "Automation", "Data"], answer: 0 },
+            { question: "Smart factories rely heavily on:", options: ["Data", "Paper", "Manual work", "Isolation"], answer: 0 },
+            { question: "Which improves decision making?", options: ["Analytics", "Manual logs", "Paper", "Isolation"], answer: 0 },
+            { question: "Industry 4.0 enhances:", options: ["Automation", "Manual work", "Isolation", "Delays"], answer: 0 },
+            { question: "Data-driven systems are:", options: ["Inefficient", "Efficient", "Manual", "Offline"], answer: 1 },
+            { question: "Smart systems can:", options: ["Predict outcomes", "Ignore data", "Work offline", "Be static"], answer: 0 },
+            { question: "Which is a key benefit of Industry 4.0?", options: ["Increased downtime", "Improved efficiency", "Reduced automation", "Manual processes"], answer: 1 },
+            { question: "Smart manufacturing integrates:", options: ["Data and machines", "Paper and logs", "Manual work", "Isolation"], answer: 0 },
+            { question: "Industry 4.0 leads to:", options: ["Digital transformation", "Manual transformation", "No change", "Isolation"], answer: 0 },
+
+            // WEEK 3 START
+
+            { question: "What is a Cyber-Physical System (CPS)?", options: ["Only physical system", "Only software system", "Integration of computation, networking, and physical processes", "Manual control system"], answer: 2 },
+            { question: "CPS enables:", options: ["Offline systems", "Real-time interaction between physical and digital worlds", "Manual processing", "Isolation"], answer: 1 },
+            { question: "Which component is NOT part of CPS?", options: ["Sensors", "Actuators", "Data processing", "Paper records"], answer: 3 },
+            { question: "CPS is mainly used in:", options: ["Traditional factories", "Smart systems", "Manual systems", "Offline systems"], answer: 1 },
+            { question: "CPS requires:", options: ["No communication", "Real-time data exchange", "Manual logs", "Paper systems"], answer: 1 },
+            { question: "Which feature defines CPS?", options: ["Isolation", "Integration", "Manual control", "Offline operation"], answer: 1 },
+            { question: "CPS systems are:", options: ["Static", "Dynamic and adaptive", "Manual", "Offline"], answer: 1 },
+            { question: "CPS improves:", options: ["Latency", "Automation", "Manual work", "Isolation"], answer: 1 },
+            { question: "CPS is closely related to:", options: ["Industry 1.0", "Industry 4.0", "Manual systems", "Offline systems"], answer: 1 },
+            { question: "CPS integrates:", options: ["Hardware only", "Software only", "Physical and digital components", "Paper systems"], answer: 2 },
+
+            { question: "PLM stands for:", options: ["Product Level Model", "Product Lifecycle Management", "Process Lifecycle Model", "Production Level Management"], answer: 1 },
+            { question: "PLM manages:", options: ["Only manufacturing", "Entire product lifecycle", "Only design", "Only sales"], answer: 1 },
+            { question: "PLM starts from:", options: ["Production", "Design phase", "Delivery", "Maintenance"], answer: 1 },
+            { question: "PLM ends at:", options: ["Production", "Delivery", "Disposal", "Design"], answer: 2 },
+            { question: "PLM improves:", options: ["Product quality", "Manual work", "Isolation", "Errors"], answer: 0 },
+            { question: "Which phase is part of PLM?", options: ["Design", "Development", "Maintenance", "All of the above"], answer: 3 },
+            { question: "PLM enables:", options: ["Data fragmentation", "Data integration", "Manual tracking", "Isolation"], answer: 1 },
+            { question: "PLM is supported by:", options: ["Digital tools", "Paper logs", "Manual records", "Isolation"], answer: 0 },
+            { question: "PLM helps in:", options: ["Reducing efficiency", "Improving collaboration", "Increasing errors", "Manual processes"], answer: 1 },
+            { question: "PLM integrates:", options: ["Departments", "Only machines", "Only people", "Only data"], answer: 0 },
+
+            { question: "Augmented Reality (AR) overlays:", options: ["Real world on virtual", "Virtual elements on real world", "Only virtual world", "Only physical world"], answer: 1 },
+            { question: "Virtual Reality (VR) creates:", options: ["Real environment", "Fully immersive virtual environment", "Mixed environment", "Manual system"], answer: 1 },
+            { question: "AR is widely used in:", options: ["Maintenance support", "Paper logs", "Manual work", "Isolation"], answer: 0 },
+            { question: "VR is useful for:", options: ["Simulation and training", "Manual processes", "Offline work", "Data deletion"], answer: 0 },
+            { question: "Which is a key advantage of AR?", options: ["No visualization", "Enhanced real-time guidance", "Isolation", "Manual control"], answer: 1 },
+            { question: "VR systems require:", options: ["Head-mounted displays", "Sensors only", "Paper logs", "Manual tools"], answer: 0 },
+            { question: "AR improves:", options: ["Errors", "Productivity", "Manual work", "Isolation"], answer: 1 },
+            { question: "VR eliminates:", options: ["Risk in training", "Data", "Sensors", "Connectivity"], answer: 0 },
+            { question: "AR integrates:", options: ["Physical + digital info", "Manual + paper", "Offline + manual", "None"], answer: 0 },
+            { question: "VR is mainly used in:", options: ["Simulation", "Data storage", "Networking", "Sensors"], answer: 0 },
+
+            { question: "AI enables systems to:", options: ["Think and learn", "Ignore data", "Work offline", "Manual control"], answer: 0 },
+            { question: "Machine learning is a subset of:", options: ["IoT", "AI", "Networking", "Hardware"], answer: 1 },
+            { question: "AI is used for:", options: ["Prediction", "Manual work", "Isolation", "Offline processing"], answer: 0 },
+            { question: "AI improves:", options: ["Errors", "Decision making", "Manual work", "Isolation"], answer: 1 },
+            { question: "Which is an AI application?", options: ["Predictive maintenance", "Paper logs", "Manual tracking", "Isolation"], answer: 0 },
+            { question: "AI requires:", options: ["Data", "Paper", "Manual work", "Isolation"], answer: 0 },
+            { question: "Deep learning is part of:", options: ["Networking", "AI", "IoT", "Hardware"], answer: 1 },
+            { question: "AI systems are:", options: ["Static", "Adaptive", "Manual", "Offline"], answer: 1 },
+            { question: "AI reduces:", options: ["Efficiency", "Human intervention", "Automation", "Connectivity"], answer: 1 },
+            { question: "AI is used in:", options: ["Smart factories", "Manual systems", "Offline systems", "Paper logs"], answer: 0 },
+
+            { question: "Big Data refers to:", options: ["Small data", "Large and complex datasets", "Manual data", "Offline data"], answer: 1 },
+            { question: "Big Data is characterized by:", options: ["2Vs", "3Vs", "5Vs", "1V"], answer: 2 },
+            { question: "Which is NOT a V of Big Data?", options: ["Volume", "Velocity", "Variety", "Voltage"], answer: 3 },
+            { question: "Big Data analytics helps in:", options: ["Prediction", "Manual work", "Isolation", "Offline processing"], answer: 0 },
+            { question: "Data-driven decisions are:", options: ["Inefficient", "Effective", "Manual", "Offline"], answer: 1 },
+            { question: "Hadoop is used for:", options: ["Data storage & processing", "Sensors", "Networking", "Actuation"], answer: 0 },
+            { question: "Big Data improves:", options: ["Insights", "Errors", "Manual work", "Isolation"], answer: 0 },
+            { question: "Analytics converts data into:", options: ["Noise", "Information", "Errors", "Isolation"], answer: 1 },
+            { question: "Real-time analytics enables:", options: ["Delayed decisions", "Instant decisions", "Manual work", "Isolation"], answer: 1 },
+            { question: "Big Data is essential for:", options: ["Industry 4.0", "Manual systems", "Offline systems", "Paper logs"], answer: 0 },
+            { question: "What is the main objective of cybersecurity in Industry 4.0?", options: ["Increase data size", "Protect systems and data", "Reduce automation", "Increase latency"], answer: 1 },
+            { question: "Which of the following is a common cyber threat?", options: ["Data visualization", "Malware", "Networking", "Automation"], answer: 1 },
+            { question: "Confidentiality ensures:", options: ["Data availability", "Data secrecy", "Data speed", "Data duplication"], answer: 1 },
+            { question: "Integrity in cybersecurity means:", options: ["Data secrecy", "Data accuracy and consistency", "Data speed", "Data storage"], answer: 1 },
+            { question: "Availability ensures:", options: ["Data is always accessible", "Data is hidden", "Data is deleted", "Data is duplicated"], answer: 0 },
+            { question: "Which attack targets system availability?", options: ["Phishing", "DoS attack", "Malware", "Spyware"], answer: 1 },
+            { question: "Encryption is used for:", options: ["Data deletion", "Data protection", "Data loss", "Data duplication"], answer: 1 },
+            { question: "Which is a network attack?", options: ["Physical theft", "DoS attack", "Sensor failure", "Power failure"], answer: 1 },
+            { question: "Authentication verifies:", options: ["Data", "User identity", "Network", "Sensors"], answer: 1 },
+            { question: "Authorization defines:", options: ["Identity", "Access rights", "Data storage", "Network speed"], answer: 1 },
+
+            { question: "IIoT stands for:", options: ["Intelligent Internet of Things", "Industrial Internet of Things", "Integrated Internet of Things", "Internal Internet of Things"], answer: 1 },
+            { question: "IIoT is mainly used in:", options: ["Social media", "Industrial environments", "Gaming", "Education only"], answer: 1 },
+            { question: "IIoT integrates:", options: ["Machines and data", "Paper and logs", "Manual work", "Isolation"], answer: 0 },
+            { question: "Industrial IoT focuses on:", options: ["Entertainment", "Efficiency and productivity", "Manual work", "Offline systems"], answer: 1 },
+            { question: "IIoT systems require:", options: ["No connectivity", "High connectivity", "Manual control", "Offline work"], answer: 1 },
+            { question: "Which is a key feature of IIoT?", options: ["Isolation", "Automation", "Manual work", "Offline systems"], answer: 1 },
+            { question: "IIoT improves:", options: ["Errors", "Efficiency", "Manual work", "Isolation"], answer: 1 },
+            { question: "Industrial Internet systems include:", options: ["Sensors and actuators", "Paper logs", "Manual processes", "Isolation"], answer: 0 },
+            { question: "IIoT supports:", options: ["Predictive maintenance", "Manual inspection", "Paper tracking", "Isolation"], answer: 0 },
+            { question: "IIoT systems are:", options: ["Static", "Dynamic", "Manual", "Offline"], answer: 1 },
+
+            { question: "Industrial sensors are used for:", options: ["Data collection", "Data deletion", "Manual tracking", "Isolation"], answer: 0 },
+            { question: "Industrial processes are:", options: ["Static", "Dynamic workflows", "Manual only", "Offline"], answer: 1 },
+            { question: "Automation in industries reduces:", options: ["Efficiency", "Human intervention", "Data usage", "Connectivity"], answer: 1 },
+            { question: "Which device controls industrial processes?", options: ["Sensor", "Controller", "Router", "Gateway"], answer: 1 },
+            { question: "Actuators perform:", options: ["Data processing", "Physical action", "Data storage", "Networking"], answer: 1 },
+            { question: "Industrial sensing involves:", options: ["Measuring parameters", "Data deletion", "Manual logs", "Isolation"], answer: 0 },
+            { question: "Process control ensures:", options: ["Stability and efficiency", "Errors", "Manual work", "Isolation"], answer: 0 },
+            { question: "Industrial processes rely on:", options: ["Data", "Paper", "Manual work", "Isolation"], answer: 0 },
+            { question: "Which is part of process control?", options: ["Feedback loop", "Paper logs", "Manual tracking", "Isolation"], answer: 0 },
+            { question: "Real-time monitoring enables:", options: ["Delayed decisions", "Instant decisions", "Manual work", "Isolation"], answer: 1 },
+
+            { question: "IIoT security focuses on:", options: ["Only devices", "End-to-end protection", "Only network", "Only data"], answer: 1 },
+            { question: "Which is a major challenge in IIoT security?", options: ["High power devices", "Resource constraints", "Unlimited memory", "No connectivity"], answer: 1 },
+            { question: "Data protection includes:", options: ["Encryption", "Manual logs", "Isolation", "Offline work"], answer: 0 },
+            { question: "Secure communication requires:", options: ["Encryption protocols", "Manual work", "Paper logs", "Isolation"], answer: 0 },
+            { question: "Device security ensures:", options: ["Physical protection", "Manual control", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Network security prevents:", options: ["Unauthorized access", "Data usage", "Automation", "Connectivity"], answer: 0 },
+            { question: "Which is a security layer?", options: ["Device", "Network", "Application", "All of the above"], answer: 3 },
+            { question: "Security risks include:", options: ["Cyber attacks", "Data analytics", "Automation", "Connectivity"], answer: 0 },
+            { question: "Trustworthy IIoT includes:", options: ["Security only", "Privacy and reliability", "Manual systems", "Offline systems"], answer: 1 },
+            { question: "Security management ensures:", options: ["Risk handling", "Data deletion", "Manual work", "Isolation"], answer: 0 },
+
+            { question: "Predictive maintenance uses:", options: ["Sensors and analytics", "Paper logs", "Manual tracking", "Isolation"], answer: 0 },
+            { question: "IIoT improves:", options: ["Productivity", "Errors", "Manual work", "Isolation"], answer: 0 },
+            { question: "Which ensures system reliability?", options: ["Security", "Manual work", "Isolation", "Paper logs"], answer: 0 },
+            { question: "Industrial automation depends on:", options: ["Data", "Paper", "Manual work", "Isolation"], answer: 0 },
+            { question: "IIoT systems enable:", options: ["Real-time monitoring", "Manual tracking", "Offline work", "Isolation"], answer: 0 },
+            { question: "Cybersecurity protects against:", options: ["Attacks", "Data", "Automation", "Connectivity"], answer: 0 },
+            { question: "Industrial IoT systems are:", options: ["Connected", "Isolated", "Manual", "Offline"], answer: 0 },
+            { question: "Data-driven systems are:", options: ["Efficient", "Manual", "Offline", "Isolated"], answer: 0 },
+            { question: "IIoT enhances:", options: ["Decision making", "Manual work", "Isolation", "Errors"], answer: 0 },
+            { question: "Security ensures:", options: ["Safe operations", "Manual processes", "Isolation", "Offline work"], answer: 0 },
+
+            { question: "In IIoT-enabled industrial processes, the primary role of feedback loops is to:", options: ["Increase latency", "Enable adaptive control and optimization", "Store historical data", "Replace sensors"], answer: 1 },
+            { question: "Which factor most critically differentiates industrial processes in IIoT from traditional automation?", options: ["Manual monitoring", "Real-time data-driven decision making", "Paper-based tracking", "Offline processing"], answer: 1 },
+            { question: "A delay in sensor-to-actuator communication in an IIoT system primarily affects:", options: ["Data storage", "Process stability", "Network topology", "Business model"], answer: 1 },
+            { question: "In a closed-loop industrial system, incorrect feedback can lead to:", options: ["Improved efficiency", "System instability", "Reduced automation", "Data redundancy"], answer: 1 },
+            { question: "Which of the following best represents a time-critical industrial process?", options: ["Batch reporting", "Real-time control system", "Data archiving", "Offline analytics"], answer: 1 },
+            { question: "In IIoT, process optimization primarily depends on:", options: ["Static rules", "Real-time analytics and control", "Manual inspection", "Historical logs only"], answer: 1 },
+            { question: "Which layer directly interacts with physical industrial processes?", options: ["Business layer", "Application layer", "Perception layer", "Cloud layer"], answer: 2 },
+            { question: "A failure in actuation primarily results in:", options: ["Incorrect sensing", "Inability to execute control actions", "Data inconsistency", "Network congestion"], answer: 1 },
+            { question: "Industrial process automation requires synchronization between:", options: ["Sensors and data centers only", "Sensing, communication, and actuation", "Cloud and business models only", "Storage and visualization"], answer: 1 },
+            { question: "Which parameter is most critical in real-time industrial control systems?", options: ["Storage capacity", "Latency", "File size", "Data format"], answer: 1 },
+
+            { question: "IIoT business models primarily shift from product-based to:", options: ["Hardware-only models", "Service-oriented models", "Manual service models", "Offline models"], answer: 1 },
+            { question: "The concept of Product-as-a-Service implies:", options: ["Selling products once", "Continuous service delivery over product lifecycle", "Manual product usage", "Offline product access"], answer: 1 },
+            { question: "Which factor enables new revenue streams in IIoT?", options: ["Manual tracking", "Data monetization", "Paper records", "Isolation"], answer: 1 },
+            { question: "A predictive maintenance service model relies heavily on:", options: ["Static data", "Real-time sensor data", "Manual logs", "Offline reports"], answer: 1 },
+            { question: "Which is a key challenge in IIoT business models?", options: ["Unlimited data", "Data ownership and privacy", "Manual processing", "Offline systems"], answer: 1 },
+            { question: "Subscription-based IIoT services depend on:", options: ["One-time sales", "Continuous data-driven services", "Manual intervention", "Offline systems"], answer: 1 },
+            { question: "Which business model is most aligned with smart factories?", options: ["Static production", "Outcome-based model", "Manual service model", "Offline production"], answer: 1 },
+            { question: "Value creation in IIoT is primarily driven by:", options: ["Hardware only", "Data and analytics", "Manual work", "Isolation"], answer: 1 },
+            { question: "Which stakeholder benefits most from IIoT analytics?", options: ["Only customers", "Entire ecosystem", "Only operators", "Only manufacturers"], answer: 1 },
+            { question: "IIoT business transformation is mainly enabled by:", options: ["Connectivity and data integration", "Manual tracking", "Paper systems", "Isolation"], answer: 0 },
+
+            { question: "IIoT reference architecture provides:", options: ["Hardware design only", "Standardized framework for system design", "Manual processes", "Offline systems"], answer: 1 },
+            { question: "The purpose of reference architecture is to:", options: ["Increase complexity", "Ensure interoperability", "Reduce automation", "Eliminate networking"], answer: 1 },
+            { question: "Which layer handles data processing in IIoT architecture?", options: ["Perception", "Network", "Processing layer", "Business"], answer: 2 },
+            { question: "In IIoT architecture, edge computing is located:", options: ["Only in cloud", "Near data source", "Only in business layer", "Offline"], answer: 1 },
+            { question: "A key feature of IIoT architecture is:", options: ["Isolation", "Scalability", "Manual operation", "Offline processing"], answer: 1 },
+            { question: "Which layer is responsible for decision making?", options: ["Perception", "Network", "Application/Business", "Sensor layer"], answer: 2 },
+            { question: "Data flow in IIoT architecture is typically:", options: ["Random", "Structured and layered", "Manual", "Offline"], answer: 1 },
+            { question: "Interoperability ensures:", options: ["Devices cannot communicate", "Different systems can work together", "Manual processes", "Isolation"], answer: 1 },
+            { question: "Which layer ensures communication between devices?", options: ["Perception", "Network", "Business", "Application"], answer: 1 },
+            { question: "Reference architecture improves:", options: ["System design efficiency", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+
+            { question: "Edge computing reduces dependency on:", options: ["Sensors", "Cloud", "Actuators", "Networks"], answer: 1 },
+            { question: "Cloud computing in IIoT is mainly used for:", options: ["Real-time control", "Data storage and analytics", "Sensing", "Actuation"], answer: 1 },
+            { question: "Which architecture supports distributed processing?", options: ["Centralized", "Distributed IIoT architecture", "Manual", "Offline"], answer: 1 },
+            { question: "Latency-sensitive applications require:", options: ["Cloud-only processing", "Edge computing", "Offline systems", "Manual control"], answer: 1 },
+            { question: "Integration of IT and OT enables:", options: ["Isolation", "Seamless data flow", "Manual work", "Offline systems"], answer: 1 },
+            { question: "Which component manages data flow across layers?", options: ["Sensor", "Middleware", "Actuator", "Paper logs"], answer: 1 },
+            { question: "Data aggregation is performed to:", options: ["Increase redundancy", "Reduce data volume", "Increase latency", "Manual processing"], answer: 1 },
+            { question: "Which system ensures coordination between devices?", options: ["Control system", "Paper logs", "Manual work", "Offline system"], answer: 0 },
+            { question: "IIoT architecture supports:", options: ["Static systems", "Dynamic systems", "Manual processes", "Offline work"], answer: 1 },
+            { question: "Which feature is critical for scalability?", options: ["Fixed design", "Modular architecture", "Manual system", "Offline system"], answer: 1 },
+
+            { question: "A factory offering machine uptime guarantee is an example of:", options: ["Product-based model", "Outcome-based model", "Manual model", "Offline model"], answer: 1 },
+            { question: "Real-time analytics in IIoT helps in:", options: ["Delayed decisions", "Immediate optimization", "Manual control", "Isolation"], answer: 1 },
+            { question: "A layered architecture improves:", options: ["Complexity", "Manageability", "Manual work", "Isolation"], answer: 1 },
+            { question: "Predictive analytics relies on:", options: ["Historical + real-time data", "Manual logs", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Business value in IIoT comes from:", options: ["Data insights", "Manual processes", "Isolation", "Offline work"], answer: 0 },
+            { question: "Which architecture component ensures scalability?", options: ["Fixed hardware", "Modular layers", "Manual system", "Offline system"], answer: 1 },
+            { question: "A failure in network layer affects:", options: ["Only sensors", "Communication", "Only business logic", "Storage only"], answer: 1 },
+            { question: "Data-driven IIoT systems are:", options: ["Inefficient", "Adaptive", "Manual", "Offline"], answer: 1 },
+            { question: "IIoT architecture supports:", options: ["Real-time operations", "Manual operations", "Offline work", "Isolation"], answer: 0 },
+            { question: "The ultimate goal of IIoT business models is:", options: ["Data deletion", "Value creation through data", "Manual work", "Isolation"], answer: 1 },
+            { question: "In IIoT sensing, the primary challenge is:", options: ["Unlimited power availability", "Accurate data acquisition under constraints", "High storage capacity", "Manual data collection"], answer: 1 },
+            { question: "Sensor calibration is mainly required to:", options: ["Increase speed", "Improve accuracy", "Reduce connectivity", "Store data"], answer: 1 },
+            { question: "Noise in sensor data primarily affects:", options: ["Data size", "Data reliability", "Network topology", "Storage"], answer: 1 },
+            { question: "Which factor most impacts sensor lifetime?", options: ["Color", "Power consumption", "Data format", "Network protocol"], answer: 1 },
+            { question: "A smart sensor differs from a traditional sensor by:", options: ["Having no processing capability", "Integrated processing and communication", "Manual operation", "Offline usage"], answer: 1 },
+            { question: "Redundant sensors are used to:", options: ["Increase cost only", "Improve reliability and fault tolerance", "Reduce accuracy", "Eliminate data"], answer: 1 },
+            { question: "Sampling rate of a sensor determines:", options: ["Data type", "Frequency of data collection", "Network speed", "Storage capacity"], answer: 1 },
+            { question: "Which condition leads to sensor drift?", options: ["Stable environment", "Environmental changes over time", "Constant power supply", "No usage"], answer: 1 },
+            { question: "Edge processing in sensing helps to:", options: ["Increase latency", "Reduce data transmission load", "Eliminate sensors", "Increase noise"], answer: 1 },
+            { question: "In industrial sensing, real-time constraints require:", options: ["Delayed data", "Timely and accurate measurements", "Offline processing", "Manual control"], answer: 1 },
+
+            { question: "Multi-sensor fusion is used to:", options: ["Reduce data", "Combine multiple sensor outputs for better accuracy", "Eliminate sensors", "Increase noise"], answer: 1 },
+            { question: "Which is a limitation of low-cost sensors?", options: ["High accuracy", "Limited precision", "Unlimited power", "High reliability"], answer: 1 },
+            { question: "Sensor data preprocessing includes:", options: ["Cleaning and filtering", "Manual logging", "Data deletion", "Isolation"], answer: 0 },
+            { question: "Which component converts analog signals to digital?", options: ["DAC", "ADC", "Router", "Gateway"], answer: 1 },
+            { question: "In IIoT, sensing layer interacts with:", options: ["Physical environment", "Cloud only", "Business layer", "Storage"], answer: 0 },
+            { question: "Which factor improves sensing reliability?", options: ["Redundancy", "Isolation", "Manual logs", "Offline systems"], answer: 0 },
+            { question: "Sensor latency impacts:", options: ["Data format", "Real-time response", "Storage", "Network topology"], answer: 1 },
+            { question: "Smart sensing systems are:", options: ["Static", "Adaptive", "Manual", "Offline"], answer: 1 },
+            { question: "Which is critical for industrial sensing?", options: ["Accuracy and reliability", "Color and size", "Manual control", "Offline systems"], answer: 0 },
+            { question: "Sensor networks are designed for:", options: ["Data acquisition and transmission", "Manual work", "Isolation", "Offline processing"], answer: 0 },
+
+            { question: "Connectivity in IIoT ensures:", options: ["Isolation", "Communication between devices", "Manual work", "Offline processing"], answer: 1 },
+            { question: "Which protocol is lightweight for IoT?", options: ["HTTP", "MQTT", "FTP", "SMTP"], answer: 1 },
+            { question: "MQTT operates on:", options: ["Request-response", "Publish-subscribe", "Peer-to-peer", "Ring topology"], answer: 1 },
+            { question: "CoAP is designed for:", options: ["High bandwidth systems", "Constrained devices", "Manual systems", "Offline systems"], answer: 1 },
+            { question: "Which protocol uses UDP?", options: ["HTTP", "CoAP", "FTP", "SMTP"], answer: 1 },
+            { question: "Connectivity choice depends on:", options: ["Application requirements", "Color", "Manual work", "Offline systems"], answer: 0 },
+            { question: "LPWAN is used for:", options: ["Short-range communication", "Long-range low-power communication", "High-speed LAN", "Wired networks"], answer: 1 },
+            { question: "Which factor affects connectivity performance?", options: ["Latency", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Wireless communication is preferred for:", options: ["Flexibility", "Manual systems", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Which technology supports short-range communication?", options: ["LPWAN", "BLE", "Satellite", "LTE"], answer: 1 },
+
+            { question: "High latency in IIoT systems leads to:", options: ["Faster response", "Delayed control actions", "Better accuracy", "Increased storage"], answer: 1 },
+            { question: "Reliability in communication ensures:", options: ["Data loss", "Successful data delivery", "Manual work", "Isolation"], answer: 1 },
+            { question: "QoS controls:", options: ["Data format", "Network performance", "Manual work", "Storage"], answer: 1 },
+            { question: "Which is a trade-off in connectivity?", options: ["Power vs range", "Color vs size", "Manual vs automatic", "Offline vs online"], answer: 0 },
+            { question: "Edge devices reduce:", options: ["Processing", "Cloud dependency", "Sensors", "Connectivity"], answer: 1 },
+            { question: "Bandwidth determines:", options: ["Data transfer rate", "Sensor accuracy", "Storage", "Manual work"], answer: 0 },
+            { question: "Packet loss affects:", options: ["Data reliability", "Color", "Size", "Manual logs"], answer: 0 },
+            { question: "Network congestion leads to:", options: ["Faster communication", "Delays and packet loss", "Better performance", "Manual work"], answer: 1 },
+            { question: "Secure communication requires:", options: ["Encryption", "Manual logs", "Isolation", "Offline systems"], answer: 0 },
+            { question: "Which protocol is best for real-time IoT?", options: ["MQTT", "FTP", "SMTP", "HTTP"], answer: 0 },
+
+            { question: "A low-power wide-area network is ideal for:", options: ["Smart cities", "Manual systems", "Offline work", "Isolation"], answer: 0 },
+            { question: "Sensor + connectivity integration enables:", options: ["Automation", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "Which is critical for industrial communication?", options: ["Reliability", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Connectivity failures result in:", options: ["Better performance", "Data loss and delays", "Increased efficiency", "Manual work"], answer: 1 },
+            { question: "Real-time systems require:", options: ["High latency", "Low latency", "Manual control", "Offline processing"], answer: 1 },
+            { question: "Data transmission depends on:", options: ["Network quality", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Wireless networks are:", options: ["Flexible", "Static", "Manual", "Offline"], answer: 0 },
+            { question: "IoT connectivity enables:", options: ["Device interaction", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "End-to-end communication requires:", options: ["Sensors only", "Full network stack", "Manual logs", "Offline systems"], answer: 1 },
+            { question: "Key enablers of IIoT include:", options: ["Sensing and connectivity", "Manual systems", "Offline work", "Isolation"], answer: 0 },
+
+            // Week 7 starts
+
+            { question: "In multi-hop IoT networks, the primary advantage is:", options: ["Increased latency", "Extended network coverage", "Reduced reliability", "Manual routing"], answer: 1 },
+            { question: "A failure in intermediate nodes leads to:", options: ["Improved routing", "Communication breakdown", "Reduced latency", "Better throughput"], answer: 1 },
+            { question: "Mesh topology provides:", options: ["Single path communication", "Multiple redundant paths", "Manual control", "Offline communication"], answer: 1 },
+            { question: "Which factor is critical for routing efficiency?", options: ["Color", "Path optimization", "Manual logs", "Storage"], answer: 1 },
+            { question: "Congestion control is required to:", options: ["Increase packet loss", "Manage network traffic", "Reduce connectivity", "Disable routing"], answer: 1 },
+            { question: "Deterministic communication ensures:", options: ["Random delays", "Predictable latency", "High packet loss", "Manual routing"], answer: 1 },
+            { question: "Which protocol supports deterministic scheduling?", options: ["HTTP", "6TiSCH", "FTP", "SMTP"], answer: 1 },
+            { question: "Network reliability improves with:", options: ["Single node dependency", "Redundant paths", "Manual routing", "Offline systems"], answer: 1 },
+            { question: "Packet collisions occur due to:", options: ["High latency", "Shared communication medium", "Data storage", "Processing delay"], answer: 1 },
+            { question: "Time synchronization is critical for:", options: ["Data storage", "Coordinated communication", "Manual control", "Offline systems"], answer: 1 },
+
+            { question: "Data processing converts raw data into:", options: ["Noise", "Useful information", "Errors", "Storage only"], answer: 1 },
+            { question: "Edge processing reduces:", options: ["Computation", "Data transmission to cloud", "Sensors", "Connectivity"], answer: 1 },
+            { question: "Which layer handles primary data processing?", options: ["Perception", "Processing", "Business", "Network"], answer: 1 },
+            { question: "Real-time processing is required for:", options: ["Batch systems", "Time-critical applications", "Offline analysis", "Manual logs"], answer: 1 },
+            { question: "Key challenge in IIoT processing?", options: ["Unlimited resources", "Resource constraints", "Manual work", "Offline systems"], answer: 1 },
+            { question: "Data filtering is used to:", options: ["Increase noise", "Remove irrelevant data", "Increase latency", "Store data"], answer: 1 },
+            { question: "Stream processing is suitable for:", options: ["Static data", "Continuous data flow", "Manual logs", "Offline systems"], answer: 1 },
+            { question: "Which improves processing efficiency?", options: ["Parallel processing", "Manual processing", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Cloud processing is ideal for:", options: ["Real-time control", "Heavy data analytics", "Sensor operation", "Actuation"], answer: 1 },
+            { question: "Data aggregation helps in:", options: ["Increasing data volume", "Reducing data redundancy", "Increasing latency", "Manual processing"], answer: 1 },
+
+            { question: "Latency-sensitive tasks should be processed at:", options: ["Cloud", "Edge", "Storage", "Business layer"], answer: 1 },
+            { question: "Batch processing is characterized by:", options: ["Real-time execution", "Delayed processing", "Continuous flow", "Instant response"], answer: 1 },
+            { question: "Processing delay affects:", options: ["Data size", "System response time", "Storage", "Color"], answer: 1 },
+            { question: "Which architecture supports distributed processing?", options: ["Centralized", "Distributed", "Manual", "Offline"], answer: 1 },
+            { question: "Data compression is used to:", options: ["Increase size", "Reduce bandwidth usage", "Increase latency", "Manual processing"], answer: 1 },
+            { question: "Which factor impacts processing speed?", options: ["CPU capability", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Edge devices handle:", options: ["Heavy analytics only", "Preliminary data processing", "Manual logs", "Offline systems"], answer: 1 },
+            { question: "Which is a trade-off in processing?", options: ["Speed vs accuracy", "Color vs size", "Manual vs automatic", "Offline vs online"], answer: 0 },
+            { question: "Data pipelines are used for:", options: ["Manual data entry", "Automated data flow processing", "Offline storage", "Isolation"], answer: 1 },
+            { question: "Processing systems must ensure:", options: ["Data loss", "Data integrity", "Manual work", "Isolation"], answer: 1 },
+
+            { question: "Process control ensures:", options: ["Random outputs", "Desired system behavior", "Manual operation", "Offline systems"], answer: 1 },
+            { question: "A control system consists of:", options: ["Sensors only", "Sensors, controller, actuators", "Cloud only", "Network only"], answer: 1 },
+            { question: "Open-loop systems lack:", options: ["Input", "Feedback", "Output", "Control"], answer: 1 },
+            { question: "Closed-loop systems use:", options: ["Manual control", "Feedback", "Offline processing", "Isolation"], answer: 1 },
+            { question: "Feedback improves:", options: ["Accuracy", "Errors", "Manual work", "Isolation"], answer: 0 },
+            { question: "Control systems aim to:", options: ["Increase deviation", "Minimize error", "Manual work", "Isolation"], answer: 1 },
+            { question: "Stability means:", options: ["Random output", "Consistent performance", "Manual operation", "Offline systems"], answer: 1 },
+            { question: "Which system responds automatically?", options: ["Open-loop", "Closed-loop", "Manual", "Offline"], answer: 1 },
+            { question: "Industrial automation relies on:", options: ["Control systems", "Manual logs", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Real-time control requires:", options: ["High latency", "Low latency", "Manual control", "Offline processing"], answer: 1 },
+
+            { question: "A smart thermostat is an example of:", options: ["Open-loop system", "Closed-loop system", "Manual system", "Offline system"], answer: 1 },
+            { question: "Failure in feedback loop leads to:", options: ["Stability", "Instability", "Efficiency", "Automation"], answer: 1 },
+            { question: "Edge + processing integration enables:", options: ["Faster response", "Delayed response", "Manual work", "Isolation"], answer: 0 },
+            { question: "Distributed processing improves:", options: ["Scalability", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "Control systems depend on:", options: ["Data", "Paper", "Manual logs", "Isolation"], answer: 0 },
+            { question: "Processing + control enables:", options: ["Automation", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "Critical for IIoT control systems?", options: ["Timing", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Data-driven control systems are:", options: ["Adaptive", "Static", "Manual", "Offline"], answer: 0 },
+            { question: "Smart control systems can:", options: ["Self-adjust", "Ignore data", "Work offline", "Be static"], answer: 0 },
+            { question: "Goal of processing + control is:", options: ["Automation and optimization", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "The primary goal of IIoT analytics is to:", options: ["Store data", "Convert data into actionable insights", "Increase latency", "Manual processing"], answer: 1 },
+            { question: "Which type of analytics answers What happened?", options: ["Predictive", "Prescriptive", "Descriptive", "Diagnostic"], answer: 2 },
+            { question: "Predictive analytics is used to:", options: ["Analyze past data only", "Forecast future outcomes", "Store data", "Delete data"], answer: 1 },
+            { question: "Prescriptive analytics helps in:", options: ["Data storage", "Decision recommendations", "Data collection", "Networking"], answer: 1 },
+            { question: "Real-time analytics requires:", options: ["High latency", "Low latency processing", "Manual processing", "Offline systems"], answer: 1 },
+            { question: "Which is NOT part of analytics pipeline?", options: ["Data collection", "Data processing", "Data visualization", "Manual logging"], answer: 3 },
+            { question: "Analytics transforms data into:", options: ["Noise", "Information", "Errors", "Storage"], answer: 1 },
+            { question: "Which stage cleans raw data?", options: ["Visualization", "Preprocessing", "Storage", "Networking"], answer: 1 },
+            { question: "Which type of analytics answers Why did it happen?", options: ["Descriptive", "Diagnostic", "Predictive", "Prescriptive"], answer: 1 },
+            { question: "Data visualization helps in:", options: ["Data deletion", "Better understanding of insights", "Increasing latency", "Manual processing"], answer: 1 },
+
+            { question: "Machine learning enables systems to:", options: ["Follow fixed rules only", "Learn from data", "Ignore data", "Work offline"], answer: 1 },
+            { question: "Supervised learning uses:", options: ["Unlabeled data", "Labeled data", "Random data", "No data"], answer: 1 },
+            { question: "Unsupervised learning is used for:", options: ["Classification with labels", "Clustering without labels", "Prediction only", "Data storage"], answer: 1 },
+            { question: "Which is a supervised learning algorithm?", options: ["K-means", "Linear regression", "PCA", "Clustering"], answer: 1 },
+            { question: "Overfitting occurs when:", options: ["Model is too simple", "Model learns noise in training data", "Data is clean", "Model ignores data"], answer: 1 },
+            { question: "Which improves model generalization?", options: ["Overfitting", "Regularization", "Noise", "Manual tuning"], answer: 1 },
+            { question: "Training data is used to:", options: ["Test model", "Build model", "Delete data", "Store data"], answer: 1 },
+            { question: "Testing data is used to:", options: ["Train model", "Evaluate model", "Delete data", "Process data"], answer: 1 },
+            { question: "Which is an example of classification?", options: ["Predicting temperature", "Spam detection", "Data clustering", "Data storage"], answer: 1 },
+            { question: "Regression is used for:", options: ["Categorical output", "Continuous output", "Data clustering", "Networking"], answer: 1 },
+
+            { question: "Bias-variance tradeoff refers to:", options: ["Data storage", "Model complexity vs generalization", "Network performance", "Manual work"], answer: 1 },
+            { question: "High bias leads to:", options: ["Overfitting", "Underfitting", "Perfect model", "Data loss"], answer: 1 },
+            { question: "Feature selection helps in:", options: ["Increasing noise", "Improving model performance", "Data deletion", "Manual processing"], answer: 1 },
+            { question: "Which metric is used for classification accuracy?", options: ["MSE", "Accuracy", "Latency", "Throughput"], answer: 1 },
+            { question: "Which algorithm is used for clustering?", options: ["K-means", "Linear regression", "Decision tree", "Logistic regression"], answer: 0 },
+            { question: "Deep learning is based on:", options: ["Neural networks", "Networking", "Sensors", "Actuators"], answer: 0 },
+            { question: "Training time depends on:", options: ["Data size", "Color", "Shape", "Manual logs"], answer: 0 },
+            { question: "Which problem occurs due to insufficient data?", options: ["Overfitting", "Underfitting", "Perfect model", "Noise"], answer: 1 },
+            { question: "Data normalization helps in:", options: ["Scaling data", "Increasing noise", "Data deletion", "Manual processing"], answer: 0 },
+            { question: "Which is critical for ML models?", options: ["Data quality", "Color", "Shape", "Manual logs"], answer: 0 },
+
+            { question: "Cloud computing provides:", options: ["Only storage", "On-demand resources", "Manual processing", "Offline systems"], answer: 1 },
+            { question: "Which is a cloud service model?", options: ["SaaS", "LAN", "WAN", "BLE"], answer: 0 },
+            { question: "IaaS provides:", options: ["Infrastructure", "Software only", "Networking only", "Sensors"], answer: 0 },
+            { question: "PaaS provides:", options: ["Platform for development", "Hardware only", "Manual systems", "Offline tools"], answer: 0 },
+            { question: "SaaS provides:", options: ["Ready-to-use applications", "Hardware", "Networking", "Sensors"], answer: 0 },
+            { question: "Cloud scalability means:", options: ["Fixed resources", "Flexible resource allocation", "Manual systems", "Offline processing"], answer: 1 },
+            { question: "Cloud computing reduces:", options: ["Cost", "Automation", "Connectivity", "Data"], answer: 0 },
+            { question: "Which is a cloud deployment model?", options: ["Public cloud", "Sensor network", "Manual system", "Offline system"], answer: 0 },
+            { question: "Cloud supports:", options: ["Big data analytics", "Manual work", "Isolation", "Offline processing"], answer: 0 },
+            { question: "Cloud latency is higher than:", options: ["Edge computing", "Sensors", "Actuators", "Storage"], answer: 0 },
+
+            { question: "Edge + Cloud integration provides:", options: ["Faster + scalable processing", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "ML in IIoT is used for:", options: ["Prediction", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "Real-time analytics depends on:", options: ["Low latency", "High latency", "Manual work", "Offline processing"], answer: 0 },
+            { question: "Data-driven decisions are:", options: ["Inefficient", "Effective", "Manual", "Offline"], answer: 1 },
+            { question: "Cloud + analytics enables:", options: ["Smart decision making", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { question: "ML models improve with:", options: ["More data", "Less data", "Manual work", "Isolation"], answer: 0 },
+            { question: "Predictive maintenance uses:", options: ["ML + analytics", "Manual logs", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Big data processing requires:", options: ["Cloud", "Manual logs", "Offline systems", "Isolation"], answer: 0 },
+            { question: "Analytics pipeline ends with:", options: ["Visualization", "Data collection", "Storage", "Networking"], answer: 0 },
+            { question: "Goal of analytics + ML is:", options: ["Insight + prediction", "Manual work", "Isolation", "Offline systems"], answer: 0 },
+            { "question": "Fog computing primarily extends cloud computing to:", "options": ["End users", "Network edge", "Data centers only", "Offline systems"], "answer": 1 },
+            { "question": "The main advantage of fog computing is:", "options": ["High latency", "Reduced latency", "Increased cost", "Manual processing"], "answer": 1 },
+            { "question": "Fog nodes are typically located:", "options": ["Only in cloud", "Between cloud and devices", "Only in sensors", "Offline"], "answer": 1 },
+            { "question": "Which application benefits most from fog computing?", "options": ["Batch processing", "Real-time control systems", "Data storage", "Offline analytics"], "answer": 1 },
+            { "question": "Fog computing reduces:", "options": ["Processing", "Bandwidth usage", "Sensors", "Connectivity"], "answer": 1 },
+            { "question": "Which is a key feature of fog computing?", "options": ["Centralization", "Decentralization", "Manual control", "Offline processing"], "answer": 1 },
+            { "question": "Fog computing is best suited for:", "options": ["Latency-tolerant systems", "Latency-sensitive systems", "Offline systems", "Manual systems"], "answer": 1 },
+            { "question": "Which layer does fog computing belong to?", "options": ["Perception", "Intermediate layer", "Business", "Application"], "answer": 1 },
+            { "question": "Fog computing supports:", "options": ["Real-time analytics", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Compared to cloud, fog computing provides:", "options": ["Higher latency", "Faster response", "Less flexibility", "No processing"], "answer": 1 },
+
+            { "question": "R and Julia are mainly used for:", "options": ["Networking", "Data analysis and computation", "Sensors", "Actuators"], "answer": 1 },
+            { "question": "Which language is optimized for high-performance numerical computing?", "options": ["R", "Julia", "Python", "C"], "answer": 1 },
+            { "question": "R is widely used for:", "options": ["Networking", "Statistical analysis", "Hardware design", "Actuation"], "answer": 1 },
+            { "question": "Which is a key advantage of Julia?", "options": ["Slow execution", "High performance with simplicity", "Manual processing", "Offline systems"], "answer": 1 },
+            { "question": "Data visualization is commonly done using:", "options": ["R", "Sensors", "Routers", "Gateways"], "answer": 0 },
+            { "question": "R language is mainly used in:", "options": ["Embedded systems", "Data science", "Networking", "Actuation"], "answer": 1 },
+            { "question": "Julia combines:", "options": ["Speed and ease of use", "Manual processing", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Which is NOT a feature of R?", "options": ["Statistical tools", "Data visualization", "Real-time control", "Data analysis"], "answer": 2 },
+            { "question": "Julia is preferred when:", "options": ["High computation speed is required", "Manual work is needed", "Offline systems are used", "Isolation"], "answer": 0 },
+            { "question": "Data analysis tools are used to:", "options": ["Delete data", "Extract insights", "Increase noise", "Manual processing"], "answer": 1 },
+
+            { "question": "Hadoop is mainly used for:", "options": ["Networking", "Big data storage and processing", "Sensors", "Actuators"], "answer": 1 },
+            { "question": "HDFS stands for:", "options": ["High Data File System", "Hadoop Distributed File System", "Hybrid Data System", "Hardware Data System"], "answer": 1 },
+            { "question": "Hadoop follows which processing model?", "options": ["Real-time", "Batch processing", "Manual processing", "Offline"], "answer": 1 },
+            { "question": "MapReduce is used for:", "options": ["Data storage", "Data processing", "Networking", "Actuation"], "answer": 1 },
+            { "question": "Hadoop provides:", "options": ["Scalability", "Manual processing", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Distributed storage means:", "options": ["Single node storage", "Multiple node storage", "Manual storage", "Offline storage"], "answer": 1 },
+            { "question": "Fault tolerance in Hadoop is achieved by:", "options": ["Data replication", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Hadoop is suitable for:", "options": ["Small data", "Large-scale data", "Manual data", "Offline data"], "answer": 1 },
+            { "question": "Which is a limitation of Hadoop?", "options": ["High latency", "Real-time processing", "Scalability", "Fault tolerance"], "answer": 0 },
+            { "question": "Data management includes:", "options": ["Storage + processing", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+
+            { "question": "Data center networks are designed for:", "options": ["High performance", "Manual work", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Which factor is critical in data centers?", "options": ["Latency", "Color", "Shape", "Manual logs"], "answer": 0 },
+            { "question": "Data center architecture supports:", "options": ["Scalability", "Manual work", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Which topology is commonly used in data centers?", "options": ["Star", "Tree", "Fat-tree", "Ring"], "answer": 2 },
+            { "question": "Load balancing ensures:", "options": ["Uneven traffic", "Efficient resource utilization", "Manual work", "Isolation"], "answer": 1 },
+            { "question": "Data center switches handle:", "options": ["Data routing", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "High bandwidth is required for:", "options": ["Big data applications", "Manual work", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Data centers support:", "options": ["Cloud computing", "Manual systems", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Which improves data center efficiency?", "options": ["Virtualization", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Data center networks are:", "options": ["Static", "Dynamic", "Manual", "Offline"], "answer": 1 },
+
+            { "question": "SDN separates:", "options": ["Data and sensors", "Control plane and data plane", "Manual and automatic", "Online and offline"], "answer": 1 },
+            { "question": "SDN controller manages:", "options": ["Data flow", "Sensors", "Actuators", "Manual logs"], "answer": 0 },
+            { "question": "SDN provides:", "options": ["Static control", "Centralized control", "Manual control", "Offline systems"], "answer": 1 },
+            { "question": "OpenFlow is used in:", "options": ["IoT sensors", "SDN communication", "Manual logs", "Offline systems"], "answer": 1 },
+            { "question": "SDN improves:", "options": ["Flexibility", "Manual work", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Network programmability is enabled by:", "options": ["SDN", "Sensors", "Actuators", "Manual logs"], "answer": 0 },
+            { "question": "SDN allows:", "options": ["Dynamic network configuration", "Manual configuration", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Which is a benefit of SDN?", "options": ["Reduced control", "Improved management", "Manual work", "Isolation"], "answer": 1 },
+            { "question": "SDN is used in:", "options": ["Data centers", "Manual systems", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "SDN architecture is:", "options": ["Decoupled", "Manual", "Offline", "Isolated"], "answer": 0 },
+
+            { "question": "In SDN, the control plane is responsible for:", "options": ["Data forwarding", "Network decision making", "Data storage", "Sensor operation"], "answer": 1 },
+            { "question": "The data plane in SDN handles:", "options": ["Routing decisions", "Packet forwarding", "Control logic", "Network policies"], "answer": 1 },
+            { "question": "Centralized control in SDN can lead to:", "options": ["Reduced flexibility", "Single point of failure", "Manual control", "Offline systems"], "answer": 1 },
+            { "question": "SDN controllers communicate with devices using:", "options": ["MQTT", "OpenFlow", "HTTP", "FTP"], "answer": 1 },
+            { "question": "Which is a key advantage of SDN?", "options": ["Static configuration", "Dynamic network management", "Manual routing", "Offline processing"], "answer": 1 },
+            { "question": "SDN improves network by:", "options": ["Increasing complexity", "Simplifying management", "Manual configuration", "Offline systems"], "answer": 1 },
+            { "question": "Network virtualization in SDN allows:", "options": ["Physical-only networks", "Multiple logical networks", "Manual systems", "Offline systems"], "answer": 1 },
+            { "question": "SDN enables:", "options": ["Fixed routing", "Programmable networks", "Manual routing", "Offline systems"], "answer": 1 },
+            { "question": "A major risk in SDN is:", "options": ["High flexibility", "Controller compromise", "Low performance", "Manual routing"], "answer": 1 },
+            { "question": "SDN is widely used in:", "options": ["Data centers", "Manual systems", "Offline systems", "Isolation"], "answer": 0 },
+
+            { "question": "The primary goal of IIoT security is:", "options": ["Data deletion", "Protect system integrity", "Manual control", "Offline systems"], "answer": 1 },
+            { "question": "Which is a key security principle?", "options": ["CIA triad", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Confidentiality ensures:", "options": ["Data accuracy", "Data secrecy", "Data availability", "Data storage"], "answer": 1 },
+            { "question": "Integrity ensures:", "options": ["Data secrecy", "Data accuracy", "Data availability", "Data deletion"], "answer": 1 },
+            { "question": "Availability ensures:", "options": ["Data secrecy", "System accessibility", "Data accuracy", "Data deletion"], "answer": 1 },
+            { "question": "Authentication verifies:", "options": ["Data", "Identity", "Network", "Storage"], "answer": 1 },
+            { "question": "Encryption is used for:", "options": ["Data visibility", "Data protection", "Data deletion", "Manual logs"], "answer": 1 },
+            { "question": "Which is a common IIoT threat?", "options": ["Data analytics", "Unauthorized access", "Automation", "Connectivity"], "answer": 1 },
+            { "question": "Which layer is most vulnerable?", "options": ["Physical device layer", "Business layer", "Cloud layer", "Storage layer"], "answer": 0 },
+            { "question": "End-to-end security ensures:", "options": ["Partial protection", "Complete data protection across system", "Manual logs", "Offline systems"], "answer": 1 },
+
+            { "question": "A weak password mainly affects:", "options": ["Network speed", "Authentication security", "Data storage", "Processing"], "answer": 1 },
+            { "question": "Which attack targets availability?", "options": ["Data theft", "DoS attack", "Data modification", "Encryption"], "answer": 1 },
+            { "question": "Data tampering affects:", "options": ["Confidentiality", "Integrity", "Availability", "Storage"], "answer": 1 },
+            { "question": "Secure communication requires:", "options": ["Encryption + authentication", "Manual logs", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Which is a challenge in IIoT security?", "options": ["Unlimited resources", "Resource-constrained devices", "Manual logs", "Offline systems"], "answer": 1 },
+            { "question": "Firmware updates help in:", "options": ["Increasing risk", "Fixing vulnerabilities", "Manual control", "Offline systems"], "answer": 1 },
+            { "question": "Which ensures secure device identity?", "options": ["Authentication", "Storage", "Networking", "Manual logs"], "answer": 0 },
+            { "question": "Network attacks exploit:", "options": ["Connectivity", "Sensors", "Storage", "Manual logs"], "answer": 0 },
+            { "question": "Which security measure protects data in transit?", "options": ["Encryption", "Storage", "Manual logs", "Isolation"], "answer": 0 },
+            { "question": "Security breaches lead to:", "options": ["Efficiency", "Data loss", "Automation", "Optimization"], "answer": 1 },
+
+            { "question": "Smart factories rely on:", "options": ["Manual work", "Automation + data", "Offline systems", "Isolation"], "answer": 1 },
+            { "question": "Predictive maintenance reduces:", "options": ["Efficiency", "Downtime", "Automation", "Connectivity"], "answer": 1 },
+            { "question": "Real-time monitoring improves:", "options": ["Delay", "Efficiency", "Manual work", "Isolation"], "answer": 1 },
+            { "question": "Which enables smart decision making in factories?", "options": ["Data analytics", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Automation leads to:", "options": ["Increased errors", "Higher productivity", "Manual work", "Isolation"], "answer": 1 },
+            { "question": "Industrial robots are used for:", "options": ["Manual work", "Automated tasks", "Offline systems", "Isolation"], "answer": 1 },
+            { "question": "Smart factories are:", "options": ["Static", "Adaptive", "Manual", "Offline"], "answer": 1 },
+            { "question": "IIoT enables:", "options": ["Data-driven manufacturing", "Manual systems", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Sensors in factories are used for:", "options": ["Monitoring", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Smart factories improve:", "options": ["Cost", "Efficiency", "Manual work", "Isolation"], "answer": 1 },
+
+            { "question": "IoT in food industry helps in:", "options": ["Manual tracking", "Supply chain monitoring", "Offline systems", "Isolation"], "answer": 1 },
+            { "question": "Sensors in food industry monitor:", "options": ["Quality", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Supply chain transparency leads to:", "options": ["Waste increase", "Waste reduction", "Manual work", "Isolation"], "answer": 1 },
+            { "question": "Temperature monitoring is critical for:", "options": ["Food safety", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "IoT improves food logistics by:", "options": ["Automation", "Manual work", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Traceability in food supply chain ensures:", "options": ["Data loss", "Product tracking", "Manual logs", "Isolation"], "answer": 1 },
+            { "question": "Smart packaging can:", "options": ["Monitor conditions", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Food spoilage can be reduced by:", "options": ["Monitoring systems", "Manual logs", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "IoT enables:", "options": ["Smart agriculture + supply chain", "Manual systems", "Offline systems", "Isolation"], "answer": 0 },
+            { "question": "Goal of IIoT in food industry is:", "options": ["Quality + safety", "Manual work", "Isolation", "Offline systems"], "answer": 0 },
+            { "question": "Which of the following sensors is an example of a Zero Order System?", "options": ["Thermometer", "Potentiometer", "Accelerometer", "Gyroscope"], "answer": 1 },
+
+            { "question": "Which Zigbee device type acts as the root and also functions as the network bridge?", "options": ["Zigbee Router", "Zigbee End Device", "Zigbee Coordinator", "Zigbee Gateway"], "answer": 2 },
+
+            { "question": "Which physical principle primarily explains the operation of hydraulic actuators?", "options": ["Pascal’s law", "Bernoulli’s principle", "Ideal gas law", "Faraday’s law"], "answer": 0 },
+
+            { "question": "At which OSI layer does the 6LoWPAN protocol primarily operate to enable IPv6 packets over IEEE 802.15.4?", "options": ["Physical Layer", "Network Layer (Adaptation Layer)", "Transport Layer", "Application Layer"], "answer": 1 },
+
+            { "question": "Which IEEE 802.15.4 variant introduces Direct Sequence Ultra-Wideband (UWB) Physical Layer?", "options": ["802.15.4a", "802.15.4b", "802.15.4e", "802.15.4g"], "answer": 0 },
+
+            { "question": "In the context of sensor characteristics, the properties of the system’s transient response to an input are collectively termed as characteristics.", "options": ["Dynamic characteristics", "Static characteristics", "Time-domain characteristics", "Steady-state characteristics"], "answer": 0 },
+
+            { "question": "In the context of the WirelessHART standard operating in the 2.4 GHz ISM band, what is the frequency gap maintained between two adjacent channels?", "options": ["2 MHz", "5 MHz", "20 MHz", "25 MHz"], "answer": 1 },
+
+            { "question": "State True or False. A Passive NFC device can neither transmit nor read any data.", "options": ["True", "False"], "answer": 1 },
+
+            { "question": "What is the data rate of Bluetooth 2.0?", "options": ["1 Mbps", "2 Mbps", "3 Mbps", "4 Mbps"], "answer": 2 },
+
+            { "question": "The primary focus of the ISA 100.11a technology is the implementation of ____ in the industrial environment.", "options": ["Automation", "Connectivity", "Predictive maintenance", "Security"], "answer": 0 },
+
+            { "question": "State True or False. Classical Internet is not meant for constrained IoT devices.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "In the context of CoRE Service Discovery, IoT devices register their resources to the Resource Directory using which interface?", "options": ["Lookup Interface (LI)", "Transport Interface (TI)", "Registration Interface (RI)", "Application Interface (AI)"], "answer": 2 },
+
+            { "question": "In the context of QoS for IoT Networks, which data timeliness policy mandates dropping stale data and notifying the application that a deadline has been missed?", "options": ["Latency budget policy", "Deadline policy", "Retention policy", "Priority policy"], "answer": 1 },
+
+            { "question": "State True or False. MQTT works on the Request/Response framework on top of UDP.", "options": ["True", "False"], "answer": 1 },
+
+            { "question": "Which of the following is/are advantages of XMPP?", "options": ["Interoperability", "Extensibility", "Flexibility", "All of these"], "answer": 3 },
+            { "question": "Which type of waste in the Lean Production System is defined as 'Non value-added movement of people'?", "options": ["Transportation", "Motion", "Waiting", "Defects"], "answer": 1 },
+
+            { "question": "Which type of business model value proposition exists when a bunch of goods/services are of higher value compared to the individual value of that product?", "options": ["Efficiency-centric", "Novelty-centric", "Lock-in centric", "Complementary"], "answer": 3 },
+
+            { "question": "In the context of Lean Manufacturing wastes, what causes 'Processing waste'?", "options": ["Producing products before demand", "Use of inappropriate tools for processing", "Excess inventory on the factory floor", "Non-value added movement of personnel"], "answer": 1 },
+
+            { "question": "Which resource is primarily utilized to achieve 'Optimization' in smart and connected products?", "options": ["Optimization algorithms", "Custom software", "External data sources", "Sensors only"], "answer": 0 },
+
+            { "question": "Which specific 'New Material' mentioned in the context of Physical Megatrends is described as being stronger than steel but thinner than a human hair?", "options": ["Carbon Fiber", "Graphene", "Aerogel", "Titanium Alloy"], "answer": 1 },
+
+            { "question": "What are the three types of work to be noticed when analyzing 'Value streams'?", "options": ["Design, Production, and Delivery", "Value-added, Incidental, and Pure Waste", "Manual, Automated, and Hybrid", "Planning, Execution, and Monitoring"], "answer": 1 },
+
+            { "question": "What are the three categories of Megatrends driving the Fourth Industrial Revolution?", "options": ["Economic, Social, Political", "Physical, Digital, Biological", "Hardware, Software, Network", "Local, National, Global"], "answer": 1 },
+
+            { "question": "Which material except Graphene is cited as an example of 'New Materials' under Physical Megatrends?", "options": ["Silicon", "Thermoset plastics", "Copper", "Aluminum"], "answer": 1 },
+
+            { "question": "How do you define Sustainability in the context of a Manufacturing Industry?", "options": ["To increase profit margins annually", "To continue at a fixed rate", "To eliminate all waste products", "To automate all processes"], "answer": 1 },
+
+            { "question": "In the context of 'Government Regulations,' what does the acronym EPA stand for?", "options": ["Economic Policy Agency", "Environmental Protection Agencies", "Energy Production Association", "Employment Protection Act"], "answer": 1 },
+
+            { "question": "Which of the following is a characteristic of an economic depression?", "options": ["Duration is less than a year", "High employment rates", "Exponential unemployment increase", "Increase in available credit"], "answer": 2 },
+
+            { "question": "Which layer in the architecture of smart and connected products is responsible for collecting and acquiring data?", "options": ["Digital layer", "Connectivity layer", "Physical layer", "Application layer"], "answer": 2 },
+
+            { "question": "Which of the following is a 'Lock-in centric' value creation model?", "options": ["Focusing on novelty", "Improving transaction efficiency", "Preventing customer migration", "Offering complementary products"], "answer": 2 },
+
+            { "question": "Which characteristic of smart factories involves 'Self-configuration'?", "options": ["Proactivity", "Transparency", "Agility", "Connection"], "answer": 2 },
+
+            { "question": "In the automation pyramid of a smart factory, which level is at the very top?", "options": ["Device level", "Control level", "Manufacturing execution system level", "ERP level"], "answer": 3 },
+            { "question": "Who developed the first functioning Augmented Reality (AR) system in 1992?", "options": ["Ivan Sutherland", "Louis Rosenberg", "Thamos Caudell", "Morton Heilig"], "answer": 1 },
+
+            { "question": "In the 5C Architecture of CPS, which level provides the 'Collaborative Diagnostics' functionality?", "options": ["Cyber Level", "Cognition Level", "Configuration Level", "Conversion Level"], "answer": 1 },
+
+            { "question": "State True or False: AR technologies are widely used in medical science to perform complex surgeries in Neurosurgery, MRI, and X-Ray systems.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "Which 'V' of Big Data refers to the fact that Big Data supports diverse categories and formats of data with no restrictions over input data formats?", "options": ["Volume", "Velocity", "Variety", "Value"], "answer": 2 },
+
+            { "question": "In the context of Data Acquisition in Industry 4.0, what are the three main steps followed during the 'Data pre-processing' of relational data?", "options": ["Collection, Transmission, Storage", "Integration, Clearing, Redundancy Mitigation", "Analysis, Visualization, Decision Making", "Encryption, Compression, Archiving"], "answer": 1 },
+
+            { "question": "What is the first step involved in the working of a Virtual Reality (VR) system?", "options": ["Display screen shows the user view through lenses", "Processing unit creates sensations for the user", "Lenses focus and reshape the image for each eye", "Sensors estimate the user’s motion and direction in space"], "answer": 3 },
+
+            { "question": "State True or False: Brain-machine interfaces are engineered systems based on cognition and neuroscience and are a part of CPS.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "What are PMUs in the context of CPS for Smart Grid?", "options": ["Power Management Unit", "Phasor Measurement Unit", "Performance Monitoring Unit", "Project Management Unit"], "answer": 1 },
+
+            { "question": "Which of the following options best describes a Collaboration Platform?", "options": ["Manufacturing hardware device", "Business networking software", "Entertainment social app", "Financial record database"], "answer": 1 },
+
+            { "question": "What are the five phases of the Product Lifecycle?", "options": ["Plan, Do, Check, Act", "Design, Build, Test, Deploy", "Ideate, Create, Market, Sell", "Visualize, Explain, Perceive, Retire"], "answer": 3 },
+
+            { "question": "Which of the following is a Technique/Method proposed to refine production across the lifecycle?", "options": ["ABC (Activity Based Costing)", "XYZ Analysis", "PQR Theory", "LMN Modeling"], "answer": 0 },
+
+            { "question": "Which of the following best describes Artificial Intelligence (AI)?", "options": ["Hardware manufacturing process", "Manmade thinking power", "Database management system", "Manual data entry"], "answer": 1 },
+
+            { "question": "Declarative knowledge is also known as:", "options": ["Operational knowledge", "Heuristic knowledge", "Relational knowledge", "Procedural knowledge"], "answer": 2 },
+
+            { "question": "Which of the following is a use case of AI in Industry 4.0?", "options": ["Increasing manual labor", "Reducing internet usage", "Slowing production cycles", "Ensuring machine safety"], "answer": 3 },
+
+            { "question": "Which of the following statement best describes the characteristics of Unstructured data?", "options": ["Possesses pre-defined model", "Stored in relational databases", "Managed by SQL", "No pre-defined model"], "answer": 3 },
+            { "question": "Which component of Cybersecurity protects applications from outer threats, often using firewalls?", "options": ["Application Security", "Network Security", "Cloud Security", "End-user Education"], "answer": 0 },
+            { "question": "What is Zephyr?", "options": ["A Smart Sensor", "An Website", "An OS", "None of these"], "answer": 2 },
+            { "question": "Most of the commonly used ransomware attacks use which method where the user receives a legal file as an attachment and is forced to open it?", "options": ["Worm", "Virus", "Trojan", "Malware"], "answer": 2 },
+            { "question": "In the Software-Defined Cloud Manufacturing Architecture (SDCMA), which component is responsible for detecting abnormality?", "options": ["Control Elements (CE)", "Hardware Plane", "Ensemble Intelligence Framework (EIF)", "Software Plane"], "answer": 2 },
+            { "question": "Typically which component forms the core of the smart sensor nodes?", "options": ["Transistors", "Microprocessors", "MOSFETS", "Diodes"], "answer": 1 },
+            { "question": "Which cybersecurity component involves strategies to maintain the availability, integrity, and confidentiality of business data?", "options": ["Network Security", "Operational Security", "Information Security", "Physical Security"], "answer": 2 },
+            { "question": "Which of the following is NOT a protected asset in cybersecurity?", "options": ["Hardware", "Software", "Data", "Public domain information"], "answer": 3 },
+            { "question": "How does IIoT modify traditional automation techniques?", "options": ["By removing all sensors", "By exploiting IT technology", "By using manual tools", "By ignoring data"], "answer": 1 },
+            { "question": "Which of the following has been identified as a major challenge in IIoT deployment?", "options": ["Excessive standardization", "Lack of generated data", "Surplus of skilled workers", "Data integration challenges"], "answer": 3 },
+            { "question": "How does Industrial Internet assist Power Production?", "options": ["Increases inspection costs", "Locates broken equipment easily", "Disconnects the grid", "Hides performance data"], "answer": 1 },
+            { "question": "The Industrial Internet can benefit commercial aviation industries by improving both airline operations and asset management.", "options": ["True", "False"], "answer": 0 },
+            { "question": "What is considered the primary source of IIoT data?", "options": ["Cloud Server", "Actuator", "Sensor", "Microprocessor"], "answer": 2 },
+            { "question": "Conventional Sensing is primarily involved in:", "options": ["Feedback automation", "Cloud computing", "Internet connectivity", "Big data analytics"], "answer": 0 },
+            { "question": "Which challenge of Industry 4.0 is directly associated with ageing society and lack of skilled workers?", "options": ["Dynamic market conditions", "Resource utilization", "Constrained workforce", "Product management"], "answer": 2 },
+            { "question": "Efficient use of materials, water, and energy is categorized under which expected feature of Industry 4.0?", "options": ["Competitiveness", "Innovation", "Workforce", "Efficiency"], "answer": 3 },
+            { "question": "In the context of the Value Proposition building block, which of the following is considered a qualitative value?", "options": ["Price", "Post-purchase cost reduction", "Customer experience", "Product performance"], "answer": 2 },
+            { "question": "A business model that serves specific and specialized customer groups is known as a:", "options": ["Mass market", "Segmented market", "Niche market", "Diversified market"], "answer": 2 },
+            { "question": "Credits and cash owned by an organization are classified under which asset category?", "options": ["Physical assets", "Human assets", "Intellectual assets", "Financial assets"], "answer": 3 },
+            { "question": "Which component of the IIoT business model focuses on solving the complexities and uncertainties inherent in interactions between various business actors?", "options": ["Value Proposition", "Value Network", "Value Capturing", "Value Communication"], "answer": 3 },
+            { "question": "In Big Data generated by IIoT, which V refers to the trustworthiness or quality of the data?", "options": ["Volume", "Velocity", "Variety", "Veracity"], "answer": 3 },
+            { "question": "Which of the following is considered a Lagging KPI for occupational safety?", "options": ["Percentage of workers with adequate safety training", "Number of OSH audits performed", "Frequency of observed unsafe behavior", "Number of production days lost due to sickness absence"], "answer": 3 },
+            { "question": "Caterpillar uses IoT combined with which technology for machine monitoring?", "options": ["Virtual Reality (VR)", "Augmented Reality (AR)", "Blockchain technology", "Quantum computing"], "answer": 1 },
+            { "question": "Maersk uses IoT primarily for:", "options": ["Smart Logistics", "Manufacturing cars", "Generating electricity", "Mining coal"], "answer": 0 },
+            { "question": "What does a Business Model primarily describe?", "options": ["Technical hardware specifications", "Rationale of creating value", "Employee holiday schedules", "Office floor plan"], "answer": 1 },
+            { "question": "Lack of interoperability leads to increased complexity.", "options": ["True", "False"], "answer": 0 },
+            { "question": "The three categories of IIoT business models are Cloud-based, Process-Oriented, and which Business Model?", "options": ["Hardware-Oriented", "Service-Oriented", "Product-Oriented", "Data-Oriented"], "answer": 1 },
+            { "question": "In the IIRA Framework, what are defined as collection of ideas which describe, analyze, and solve specific concerns?", "options": ["Stakeholders", "Architecture Frames", "Viewpoints", "Testbeds"], "answer": 2 },
+            { "question": "Which architecture pattern allows for fast device-to-device integration with minimum response time?", "options": ["Three-tier architecture", "Client-Server architecture", "Layered Databus pattern", "Gateway-mediated architecture"], "answer": 2 },
+            { "question": "Which element in the Usage Viewpoint of IIRA is defined as the basic unit of work carried out by a party assuming a role?", "options": ["Task", "Activity", "Agent", "Workflow"], "answer": 0 },
+            { "question": "Which IIRA viewpoint relates to the technical representation of an IIoT system including interfaces, protocols, and behaviors?", "options": ["Functional Viewpoint", "Implementation Viewpoint", "Usage Viewpoint", "Business Viewpoint"], "answer": 1 },
+            { "question": "What is the usual packet size requirement for uRLLC?", "options": ["8 B", "16–32 B", "32–200 B", "1024 B"], "answer": 2 },
+            { "question": "ModBus-TCP is an industrial communication protocol that is primarily designed to run over:", "options": ["Serial RS-232 links", "Standard Ethernet and TCP/IP", "Bluetooth Low Energy", "Satellite communication"], "answer": 1 },
+            { "question": "Which Profibus variant is designed for high-speed communication between automation systems and equipment using RS-485 or fiber optics?", "options": ["Profibus PA", "Profibus FMS", "Profibus DP", "Profinet"], "answer": 2 },
+            { "question": "What is the maximum transmission rate of the Standard CC-Link technology?", "options": ["156 kbps", "500 kbps", "10 Mbps", "1 Gbps"], "answer": 2 },
+            { "question": "Which gas sensing method relies specifically on Electrical Variation for detection?", "options": ["Acoustic Methods", "Optic Methods", "Metal Oxide Semiconductors (MOS)", "Calorimetric Method"], "answer": 2 },
+            { "question": "In manufacturing processes, Fieldbus is primarily used for which type of data transfer?", "options": ["Clock synchronization", "High-performance analytics", "Periodic I/O data transfer", "Wide Area Network (WAN) management"], "answer": 2 },
+            { "question": "Smoke detectors and alcohol detectors fall under which category of sensors in industrial monitoring?", "options": ["Optical sensors", "Thermal sensors", "Chemical sensors", "Electrical sensors"], "answer": 2 },
+            { "question": "Which variant of the CC-Link protocol is designed to ensure error-free communication of large data through Industrial Ethernet?", "options": ["CC-Link Safety", "CC-Link LT", "CC-Link IE", "CC-Link RTU"], "answer": 2 },
+            { "question": "Improvement of which of the following is emphasized as a key concern in IIoT systems?", "options": ["Only profitability", "Only system throughput", "Efficiency, productivity, health, and safety", "Hardware miniaturization alone"], "answer": 2 },
+            { "question": "The output voltage of the LM35 sensor is linearly proportional to Kelvin temperature.", "options": ["True", "False"], "answer": 1 },
+            { "question": "Air quality monitoring and alert systems with gas sensing units are primarily deployed to:", "options": ["Improve network bandwidth", "Avoid risks of harmful gas exposure", "Reduce hardware cost", "Increase cloud storage"], "answer": 1 },
+            { "question": "Which of the following belongs to the Fieldbus category?", "options": ["Profinet", "EtherNet/IP", "TSN", "Modbus-RTU"], "answer": 3 },
+            { "question": "Which Profibus variant handles communication between PCs and Programmable Logic Controllers?", "options": ["Profibus DP", "Profibus PA", "Profibus FMS", "Profibus IE"], "answer": 2 },
+            { "question": "Which network topology is used by Interbus?", "options": ["Bus", "Star", "Active ring", "Hybrid"], "answer": 2 },
+            { "question": "Which frequency band is classified as high band in 5G NR?", "options": ["< 1 GHz", "1–6 GHz", "> 24 GHz", "6–24 GHz"], "answer": 2 },
+            { "question": "What does LPWAN stand for?", "options": ["Low Power Wireless Access Network", "Long Power Wide Area Network", "Low Power Wide Area Network", "Long Power Wireless Area Network"], "answer": 2 },
+            { "question": "LoRa technology operates in which of the following frequency bands?", "options": ["License-free sub-gigahertz bands", "Licensed microwave bands", "Optical frequency bands", "Millimeter-wave bands"], "answer": 0 },
+            { "question": "What is the maximum wireless throughput achieved by SIGFOX?", "options": ["1 kbps", "500 bps", "10 kbps", "100 bps"], "answer": 3 },
+            { "question": "Which IEEE standard forms the basis of the physical and MAC layers of Zigbee?", "options": ["IEEE 802.11", "IEEE 802.3", "IEEE 802.15.4", "IEEE 802.16"], "answer": 2 },
+            { "question": "Which of the following is NOT a Zigbee-supported network topology?", "options": ["Star", "Tree", "Mesh", "Ring"], "answer": 3 },
+            { "question": "What is Xbee in the context of Zigbee communication?", "options": ["A network protocol", "A product that uses the Zigbee protocol", "A routing algorithm", "A MAC-layer standard"], "answer": 1 },
+            { "question": "Which sensor in an autonomous vehicle generates data in the range of 20–40 MB/s?", "options": ["GPS", "RADAR", "Camera", "SONAR"], "answer": 2 },
+            { "question": "What type of computing processes data closer to sensors before sending it to the cloud?", "options": ["Edge computing", "Centralized computing", "Distributed computing", "Batch computing"], "answer": 0 },
+            { "question": "In an end-to-end IIoT processing pipeline, where are rules initially configured?", "options": ["At the sensor nodes", "In the cloud", "At the edge analytics agent", "At the actuators"], "answer": 1 },
+            { "question": "What is the main objective of AR drones-based precision agriculture?", "options": ["Monitoring soil moisture", "Precise fertilizer spray to weeds", "Autonomous harvesting", "Livestock monitoring"], "answer": 1 },
+            { "question": "SWAMP enables a smart management layer between which two systems?", "options": ["Water distribution network and farm-based irrigation system", "Cloud services and mobile applications", "Sensors and actuators", "Enterprise and automation networks"], "answer": 0 },
+            { "question": "What do process variables represent in an industrial control system?", "options": ["Controller decision outputs", "Standard operating limits", "Values of process parameters measured using sensors", "Signals sent to actuators"], "answer": 2 },
+            { "question": "What is the fundamental element of industrial control systems for automatic control?", "options": ["Control loops", "Sensors", "Controllers", "Actuators"], "answer": 0 },
+            { "question": "Which component of a SCADA system interfaces directly with sensors to read and convert data?", "options": ["The Supervisory System", "The Human Machine Interface (HMI)", "The Communication Infrastructure", "Programmable Logic Controllers (PLC) and Remote Terminal Units (RTU)"], "answer": 3 },
+            { "question": "What is a primary advantage of PLCs over traditional hard-wired systems?", "options": ["They are physically larger and more durable.", "They can be easily reprogrammed, making maintenance and upgrades more economical.", "They operate at a much higher voltage.", "They do not require a power supply."], "answer": 1 }, { "question": "What is the purpose of feature extraction in ML?", "options": ["Convert raw data into compressed bitstreams only", "Convert raw data to information that relates to the physical state of the asset", "Encrypt sensor data for security", "Remove time stamps from data"], "answer": 1 },
+
+            { "question": "What is a primary goal of applying analytics in industrial systems?", "options": ["Maximizing data volume", "Replacing all controllers with cloud services", "Improving operational platform, performance, and safety", "Eliminating human workers completely"], "answer": 2 },
+
+            { "question": "What kind of data does supervised learning require?", "options": ["Completely unlabeled streams", "Only binary sensor signals", "Labeled datasets with known output classes or values", "Data without any prior samples"], "answer": 2 },
+
+            { "question": "Which of the following is explicitly listed as a goal of IIoT analytics?", "options": ["Manual inspection", "Dynamic operations optimization", "Hardware miniaturization", "Network routing"], "answer": 1 },
+
+            { "question": "What approach replaces physics-based models in modern IIoT analytics?", "options": ["Data-driven modelling using ML and DL", "Heuristic optimization", "Rule-based control", "Manual calibration"], "answer": 0 },
+
+            { "question": "Data Science is an interdisciplinary field involving which of the following areas?", "options": ["Only computer science", "Only data processing", "Only artificial intelligence", "Computer science, statistics, mathematics, machine learning, and domain expertise"], "answer": 3 },
+
+            { "question": "Unsupervised learning is primarily used for identifying similar groups of data called", "options": ["Clustering", "Classification", "Regression", "Prediction"], "answer": 0 },
+
+            { "question": "Which clustering algorithm allows a data point to belong to more than one cluster?", "options": ["K-Means", "Linear Regression", "Decision Tree", "Fuzzy c-Means"], "answer": 3 },
+
+            { "question": "Machine learning algorithms are not useful for", "options": ["Structured", "Temporal", "High dimensional", "Labeled"], "answer": 2 },
+
+            { "question": "Deep learning mimics the working function of billions of neurons in the human brain.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "Platform-as-a-Service mainly allows industries to do what?", "options": ["Only deploy hardware", "Self-develop applications", "Store raw sensor data only", "Replace networking infrastructure"], "answer": 1 },
+
+            { "question": "Which type of data is explicitly mentioned as contributing to cloud demand in IIoT?", "options": ["Image data", "M2M sensor data", "Social media data", "Textual reports"], "answer": 1 },
+
+            { "question": "Increase in number of devices makes IIoT ecosystems more complex, necessitating cloud-based device management.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "What is one key purpose of a Service Level Agreement (SLA) for IIoT?", "options": ["Eliminating cloud providers", "Promising deliverables from cloud providers", "Increasing hardware redundancy", "Enforcing local computation"], "answer": 1 },
+
+            { "question": "A good SLA should be affordable, quantifiable, controllable, meaningful, mutually acceptable, and", "options": ["Flexible", "Enforceable", "Achievable", "Adaptive"], "answer": 2 }, { "question": "Why is Julia programming considered advantageous?", "options": ["It is slower than Python.", "It merges Python’s benefits with C’s performance.", "It is a closed-source language.", "It does not support parallelism."], "answer": 1 },
+
+            { "question": "What relationship does Linear Regression detect?", "options": ["A non-linear relationship between binary variables", "A clustering pattern in unlabeled data", "A random relationship between unrelated variables", "A linear relationship between a dependent variable and independent variables"], "answer": 3 },
+
+            { "question": "Which core concept defines Software-Defined Networking (SDN)?", "options": ["Hardwiring control logic into every switch", "Decoupling the control plane from the data plane", "Combining all network functions into a single monolithic server", "Eliminating the need for any software in networking"], "answer": 1 },
+
+            { "question": "Fog computing architecture places fog nodes between and the cloud.", "options": ["Industrial end devices", "Enterprise servers", "Mobile applications", "Databases"], "answer": 0 },
+
+            { "question": "What is the major challenge in handling data from sensors and machines in IIoT?", "options": ["High cost of sensors", "Diversity in protocols, data syntax, and data sources", "Lack of storage capacity", "Insufficient processing power"], "answer": 1 },
+
+            { "question": "Fog computing in IIoT prevents unnecessary noisy big data crowd at the cloud.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "R is an open source tool for programming, statistical analysis, and graphics representation.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "Which R package provides functions for fuzzy clustering, support vector machine, and naive bayes classifier?", "options": ["rpart", "e1071", "nnet", "caret"], "answer": 1 },
+
+            { "question": "The basic service models provided by cloud computing include IaaS, PaaS, and", "options": ["DaaS", "NaaS", "SaaS", "FaaS"], "answer": 2 },
+
+            { "question": "Which Hadoop component is described as a module containing the utilities that support the other Hadoop components?", "options": ["HDFS", "MapReduce", "Hadoop Common", "YARN"], "answer": 2 },
+
+            { "question": "What routing protocol does BCube run?", "options": ["BSR (Bcube Source Routing)", "BGP", "OSPF", "RIP"], "answer": 0 },
+
+            { "question": "Which of the following is mentioned as a data center network challenge?", "options": ["High cost", "Poor server-to-server Connectivity", "Complex configuration", "Limited vendors"], "answer": 1 },
+
+            { "question": "Which protocol is mentioned as part of SDN components?", "options": ["TCP", "UDP", "OpenFlow", "HTTP"], "answer": 2 },
+
+            { "question": "GCAM is used to place flow-rules in SDN forwarding devices, but it is limited in capacity.", "options": ["True", "False"], "answer": 1 },
+
+            { "question": "Which advantage of SDIIoT enables events to be processed in order through deterministic forwarding of traffic?", "options": ["Deterministic networking", "High availability", "Low-latency virtualization", "Robust security"], "answer": 0 },
+            { "question": "What is the primary objective of the IETF 6TiSCH protocol in the context of IIoT?", "options": ["To enable deterministic communication and efficient resource allocation", "To increase non-deterministic communication", "To replace SDN controllers entirely", "To increase jitter in the network"], "answer": 0 },
+
+            { "question": "µSDN is integrated with which protocol stack?", "options": ["Zigbee stack", "IPv4 stack", "Contiki IEEE 802.15.4-2015 stack", "LTE stack"], "answer": 2 },
+
+            { "question": "The public network in SDIIoT consists of switches, routers, and network.", "options": ["Sensor", "Access", "Control", "Storage"], "answer": 1 },
+
+            { "question": "Trustworthy IIoT includes security, privacy, safety, reliability, and resilience.", "options": ["True", "False"], "answer": 0 },
+
+            { "question": "Current security architectures are mostly centric.", "options": ["OT", "IT", "Cloud", "Device"], "answer": 1 },
+
+            { "question": "Which of the following is the first step in IIoT security risk management?", "options": ["Mitigating risks", "Accepting risks", "Avoiding risks", "Outsourcing risks"], "answer": 2 },
+
+            { "question": "Security of the whole IIoT system depends on deployed devices, communication security, data protection, and", "options": ["Network topology", "Security management", "Sensor calibration", "Hardware redundancy"], "answer": 1 },
+
+            { "question": "End device protection requires physical security, access control, identity, and protection.", "options": ["Application", "Network", "Cloud", "Data"], "answer": 3 },
+
+            { "question": "What is the primary security requirement of IIoT systems?", "options": ["Device scalability", "End-to-end security", "High bandwidth", "Low latency"], "answer": 1 },
+
+            { "question": "Which feature of a smart factory enables prediction of future outcomes?", "options": ["Transparent", "Connected", "Proactive", "Agile"], "answer": 2 },
+
+            { "question": "Airbus uses which technology to visualize production processes in real time?", "options": ["Augmented Reality", "Blockchain visualization", "Virtual reality only", "3D real-time visualization"], "answer": 3 },
+
+            { "question": "What technology does Amazon use to automate product search and retrieval in its warehouse?", "options": ["Automated conveyor belts", "Robotic shelves", "Augmented Reality devices", "Autonomous forklifts"], "answer": 1 },
+
+            { "question": "What is the role of the sensing layer in IoT-enabled food supply chains?", "options": ["Data encryption", "Monitoring food quality using sensors", "Providing cloud analytics", "Managing business operations"], "answer": 1 },
+
+            { "question": "What is one major benefit of supply chain transparency in the food industry?", "options": ["Increased manual intervention", "Reduced food wastage", "Reduced sensor usage", "Elimination of automation"], "answer": 1 },
+
+            { "question": "What does the \"Flavor Matrix\" by Culinary Science Industries use to enhance dishes?", "options": ["Robot chefs", "Augmented Reality menus", "3D printed food", "Machine learning and data analysis of food ingredients"], "answer": 3 },
+        ];
+
+        // 🔥 RENDER
+        const quiz = document.getElementById("quiz");
+
+        mcqs.forEach((q, index) => {
+            const div = document.createElement("div");
+            div.className = "question";
+
+            const title = document.createElement("h3");
+            title.innerText = (index + 1) + ". " + q.question;
+            div.appendChild(title);
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement("div");
+                btn.className = "option";
+                btn.innerText = opt;
+
+                btn.onclick = () => {
+                    const all = div.querySelectorAll(".option");
+                    all.forEach(o => o.style.pointerEvents = "none");
+
+                    if (i === q.answer) {
+                        btn.classList.add("correct");
+                    } else {
+                        btn.classList.add("wrong");
+                        all[q.answer].classList.add("correct");
+                    }
+                };
+
+                div.appendChild(btn);
+            });
+
+            quiz.appendChild(div);
+        });
+
+    </script>
 
 </body>
+
 </html>
