@@ -62,7 +62,279 @@
 
         // 🔥 SAMPLE (baaki tum same format me paste karo)
         const mcqs = [
+            { "question": "MLDN  MCQ   ", "options": [], "answer": null },
+            { "question": "Which statement best describes Artificial Intelligence in modern computing systems?", "options": ["Only data storage systems", "Machines mimicking human intelligence", "Only statistical analysis", "Manual programming"], "answer": 1 },
 
+            { "question": "Machine Learning is a subset of which broader field?", "options": ["Data Science", "Artificial Intelligence", "Cloud Computing", "Cyber Security"], "answer": 1 },
+
+            { "question": "Deep Learning is mainly based on which concept?", "options": ["Decision trees", "Neural networks", "Linear equations", "Sorting algorithms"], "answer": 1 },
+
+            { "question": "Which type of ML uses labeled datasets for training models?", "options": ["Unsupervised Learning", "Reinforcement Learning", "Supervised Learning", "Semi-supervised Learning"], "answer": 2 },
+
+            { "question": "In unsupervised learning, the data provided to the algorithm typically lacks what?", "options": ["Features", "Labels", "Values", "Dimensions"], "answer": 1 },
+
+            { "question": "Reinforcement learning is mainly based on which principle?", "options": ["Clustering", "Trial and error with rewards", "Regression", "Classification"], "answer": 1 },
+
+            { "question": "Which stage of ML workflow involves removing noise and handling missing values?", "options": ["Training", "Evaluation", "Preprocessing", "Testing"], "answer": 2 },
+
+            { "question": "Which tool is commonly used to write and execute Python code interactively?", "options": ["Notepad", "Jupyter Notebook", "MS Excel", "PowerPoint"], "answer": 1 },
+
+            { "question": "Which Python library is mainly used for numerical computations and arrays?", "options": ["Pandas", "NumPy", "Matplotlib", "Seaborn"], "answer": 1 },
+
+            { "question": "Which library is most suitable for data visualization in Python?", "options": ["NumPy", "Pandas", "Matplotlib", "TensorFlow"], "answer": 2 },
+
+            { "question": "Which library is widely used for machine learning model implementation?", "options": ["scikit-learn", "Flask", "Django", "Keras"], "answer": 0 },
+
+            { "question": "What is the primary purpose of data collection in ML workflow?", "options": ["Model deployment", "Gathering raw information", "Model evaluation", "Visualization"], "answer": 1 },
+
+            { "question": "Which phase splits data into training and testing sets?", "options": ["Deployment", "Preprocessing", "Training", "Evaluation"], "answer": 2 },
+
+            { "question": "Which evaluation metric is suitable for classification problems?", "options": ["Mean", "Accuracy", "Variance", "Standard deviation"], "answer": 1 },
+
+            { "question": "Which term refers to input variables used in ML models?", "options": ["Labels", "Features", "Targets", "Weights"], "answer": 1 },
+
+            { "question": "Which ML type is used for grouping similar data points without labels?", "options": ["Supervised", "Reinforcement", "Unsupervised", "Regression"], "answer": 2 },
+
+            { "question": "Which process helps improve model performance by tuning parameters?", "options": ["Normalization", "Hyperparameter tuning", "Clustering", "Prediction"], "answer": 1 },
+
+            { "question": "Which concept refers to learning from interaction with environment?", "options": ["Supervised learning", "Reinforcement learning", "Unsupervised learning", "Batch learning"], "answer": 1 },
+
+            { "question": "Which file format is commonly used to store datasets?", "options": [".csv", ".mp3", ".exe", ".png"], "answer": 0 },
+
+            { "question": "Which of the following is NOT a step in ML workflow?", "options": ["Data collection", "Training", "Testing", "Hardware manufacturing"], "answer": 3 },
+
+            { "question": "Linear regression is mainly used for predicting which type of output?", "options": ["Categorical", "Continuous", "Binary", "Text"], "answer": 1 },
+
+            { "question": "Which regression model handles non-linear relationships using polynomial terms?", "options": ["Linear regression", "Logistic regression", "Polynomial regression", "Ridge regression"], "answer": 2 },
+
+            { "question": "Logistic regression is primarily used for which task?", "options": ["Clustering", "Classification", "Regression", "Sorting"], "answer": 1 },
+
+            { "question": "K-Nearest Neighbors algorithm is based on which concept?", "options": ["Distance calculation", "Probability only", "Random guessing", "Sorting"], "answer": 0 },
+
+            { "question": "Support Vector Machine tries to find what?", "options": ["Clusters", "Optimal hyperplane", "Random samples", "Mean value"], "answer": 1 },
+
+            { "question": "Which metric calculates correct predictions over total predictions?", "options": ["Precision", "Recall", "Accuracy", "F1-score"], "answer": 2 },
+
+            { "question": "Precision focuses on which aspect of classification?", "options": ["Correct positives", "Correct negatives", "All predictions", "False negatives"], "answer": 0 },
+
+            { "question": "Recall measures what?", "options": ["Correct positives identified", "Total predictions", "Accuracy", "Errors"], "answer": 0 },
+
+            { "question": "F1-score is a combination of which two metrics?", "options": ["Accuracy and recall", "Precision and recall", "Precision and accuracy", "Recall and error"], "answer": 1 },
+
+            { "question": "ROC-AUC is used to evaluate what?", "options": ["Clustering", "Classification performance", "Regression error", "Sorting"], "answer": 1 },
+
+            { "question": "Which algorithm groups data into K clusters?", "options": ["KNN", "K-means", "SVM", "PCA"], "answer": 1 },
+
+            { "question": "Hierarchical clustering builds clusters based on what structure?", "options": ["Random grouping", "Tree-like structure", "Linear regression", "Distance matrix only"], "answer": 1 },
+
+            { "question": "DBSCAN is useful for detecting what?", "options": ["Linear data", "Noise and outliers", "Only clusters", "Sorted data"], "answer": 1 },
+
+            { "question": "Principal Component Analysis is mainly used for what purpose?", "options": ["Classification", "Dimensionality reduction", "Clustering", "Prediction"], "answer": 1 },
+
+            { "question": "LDA is commonly used for what?", "options": ["Regression", "Classification and dimensionality reduction", "Sorting", "Visualization"], "answer": 1 },
+
+            { "question": "Which algorithm is sensitive to feature scaling?", "options": ["KNN", "Decision Tree", "Naive Bayes", "Random Forest"], "answer": 0 },
+
+            { "question": "Which distance metric is commonly used in KNN?", "options": ["Manhattan", "Euclidean", "Hamming", "All of the above"], "answer": 3 },
+
+            { "question": "Which regression assumes linear relationship between variables?", "options": ["Polynomial", "Logistic", "Linear", "Ridge"], "answer": 2 },
+
+            { "question": "Which model outputs probability between 0 and 1?", "options": ["Linear regression", "Logistic regression", "KNN", "SVM"], "answer": 1 },
+
+            { "question": "Which kernel is commonly used in SVM for non-linear data?", "options": ["Linear", "Polynomial", "RBF", "All"], "answer": 3 },
+
+            { "question": "Which clustering method does not require specifying number of clusters beforehand?", "options": ["K-means", "DBSCAN", "KNN", "SVM"], "answer": 1 },
+
+            { "question": "Which evaluation metric is best for imbalanced datasets?", "options": ["Accuracy", "Precision", "F1-score", "Mean"], "answer": 2 },
+
+            { "question": "Which step removes duplicate data entries?", "options": ["Training", "Cleaning", "Evaluation", "Prediction"], "answer": 1 },
+
+            { "question": "Which algorithm is instance-based learning?", "options": ["KNN", "SVM", "Linear regression", "PCA"], "answer": 0 },
+
+            { "question": "Which algorithm transforms features into new axes?", "options": ["KNN", "PCA", "SVM", "DBSCAN"], "answer": 1 },
+
+            { "question": "Which method groups data based on density?", "options": ["K-means", "Hierarchical", "DBSCAN", "PCA"], "answer": 2 },
+
+            { "question": "Which regression is used for binary classification?", "options": ["Linear", "Polynomial", "Logistic", "Ridge"], "answer": 2 },
+
+            { "question": "Which step involves measuring model performance on unseen data?", "options": ["Training", "Testing", "Preprocessing", "Collection"], "answer": 1 },
+
+            { "question": "Which ML model is sensitive to outliers?", "options": ["Linear regression", "Decision tree", "Random forest", "Naive Bayes"], "answer": 0 },
+
+            { "question": "Which technique reduces overfitting?", "options": ["Regularization", "Duplication", "Noise addition", "Ignoring data"], "answer": 0 },
+
+            { "question": "Which clustering algorithm uses centroids?", "options": ["K-means", "DBSCAN", "Hierarchical", "PCA"], "answer": 0 },
+
+            { "question": "Which metric penalizes false positives more?", "options": ["Recall", "Precision", "Accuracy", "F1"], "answer": 1 },
+
+            { "question": "Which type of learning uses reward signals?", "options": ["Supervised", "Unsupervised", "Reinforcement", "Semi"], "answer": 2 },
+
+            { "question": "Which method reduces feature dimensions while preserving variance?", "options": ["LDA", "PCA", "KNN", "SVM"], "answer": 1 },
+
+            { "question": "Which algorithm separates classes using margin maximization?", "options": ["KNN", "SVM", "K-means", "DBSCAN"], "answer": 1 },
+
+            { "question": "Which method is used to visualize high-dimensional data?", "options": ["PCA", "KNN", "Regression", "SVM"], "answer": 0 },
+
+            { "question": "Which is NOT a supervised learning algorithm?", "options": ["KNN", "SVM", "K-means", "Logistic regression"], "answer": 2 },
+
+            { "question": "Which algorithm is best for small datasets with clear boundaries?", "options": ["KNN", "SVM", "Linear regression", "PCA"], "answer": 1 },
+
+            { "question": "Which method combines precision and recall equally?", "options": ["Accuracy", "F1-score", "ROC", "Loss"], "answer": 1 },
+
+            { "question": "Which step ensures model generalization?", "options": ["Overfitting", "Cross-validation", "Duplication", "Noise"], "answer": 1 },
+
+            { "question": "Which clustering method forms nested clusters?", "options": ["K-means", "Hierarchical", "DBSCAN", "KNN"], "answer": 1 },
+
+            { "question": "Which evaluation curve plots true positive rate vs false positive rate?", "options": ["ROC", "PR", "Loss", "Accuracy"], "answer": 0 },
+
+            { "question": "Which ML workflow stage involves model creation?", "options": ["Collection", "Training", "Cleaning", "Visualization"], "answer": 1 },
+
+            { "question": "Which algorithm is sensitive to feature scaling and requires normalization?", "options": ["KNN", "Decision Tree", "Naive Bayes", "Random Forest"], "answer": 0 },
+
+            { "question": "Which type of data is required for supervised learning tasks?", "options": ["Unlabeled", "Structured", "Labeled", "Raw"], "answer": 2 },
+
+            { "question": "Which clustering algorithm is based on distance from centroid?", "options": ["KNN", "K-means", "DBSCAN", "LDA"], "answer": 1 },
+
+            { "question": "Which evaluation metric is harmonic mean of precision and recall?", "options": ["Accuracy", "F1-score", "Recall", "Precision"], "answer": 1 },
+            { "question": "Which field focuses on making machines intelligent like humans in decision making and reasoning?", "options": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Data Science"], "answer": 0 },
+
+            { "question": "Machine Learning is best described as which of the following concepts?", "options": ["Manual programming", "Learning from data", "Rule-based system", "Database management"], "answer": 1 },
+
+            { "question": "Deep Learning is a subset of which domain?", "options": ["Artificial Intelligence", "Networking", "Cyber Security", "Cloud Computing"], "answer": 0 },
+
+            { "question": "Which technique uses multi-layer neural networks for learning complex patterns?", "options": ["Machine Learning", "Deep Learning", "Data Mining", "Statistics"], "answer": 1 },
+
+            { "question": "Which application uses deep learning for recognizing faces in images?", "options": ["Computer Vision", "Networking", "Blockchain", "Database"], "answer": 0 },
+
+            { "question": "Natural Language Processing is commonly used in which application?", "options": ["Speech recognition", "Text understanding", "Image classification", "Data storage"], "answer": 1 },
+
+            { "question": "Which application of deep learning is used in self-driving cars?", "options": ["Image recognition", "Speech processing", "Control systems", "Manual driving"], "answer": 0 },
+
+            { "question": "Artificial Neural Networks are inspired from which system?", "options": ["Human brain", "Computer processor", "Internet", "Database"], "answer": 0 },
+
+            { "question": "Which component of a neuron receives input signals?", "options": ["Axon", "Dendrite", "Weight", "Bias"], "answer": 1 },
+
+            { "question": "Which term represents the strength of connection between neurons?", "options": ["Bias", "Weight", "Activation", "Loss"], "answer": 1 },
+
+            { "question": "Perceptron is used for solving which type of problem?", "options": ["Linear classification", "Clustering", "Regression", "Sorting"], "answer": 0 },
+
+            { "question": "Which limitation does perceptron have?", "options": ["Cannot solve linear problems", "Cannot solve non-linear problems", "Cannot use weights", "Cannot update values"], "answer": 1 },
+
+            { "question": "Which activation function outputs values between 0 and 1?", "options": ["ReLU", "Sigmoid", "Tanh", "Softmax"], "answer": 1 },
+
+            { "question": "Which activation function outputs values between -1 and 1?", "options": ["Sigmoid", "ReLU", "Tanh", "Softmax"], "answer": 2 },
+
+            { "question": "Which activation function is most commonly used in hidden layers due to simplicity?", "options": ["Sigmoid", "Tanh", "ReLU", "Softmax"], "answer": 2 },
+
+            { "question": "Softmax function is mainly used in which layer?", "options": ["Hidden layer", "Input layer", "Output layer", "Pooling layer"], "answer": 2 },
+
+            { "question": "Gradient Descent is used for which purpose?", "options": ["Data cleaning", "Optimization", "Feature selection", "Visualization"], "answer": 1 },
+
+            { "question": "What is the main goal of optimization in neural networks?", "options": ["Increase loss", "Reduce loss", "Increase data", "Reduce layers"], "answer": 1 },
+
+            { "question": "Which direction does gradient descent move in?", "options": ["Maximum slope", "Minimum slope", "Random direction", "Fixed direction"], "answer": 1 },
+
+            { "question": "Learning rate controls which aspect of training?", "options": ["Speed of learning", "Number of layers", "Data size", "Accuracy"], "answer": 0 },
+
+            { "question": "Deep Neural Networks contain how many layers typically?", "options": ["One", "Two", "Multiple hidden layers", "No layers"], "answer": 2 },
+
+            { "question": "Forward propagation is used to compute what?", "options": ["Loss value", "Weights", "Gradients", "Bias updates"], "answer": 0 },
+
+            { "question": "Backpropagation is used to compute which values?", "options": ["Predictions", "Gradients", "Inputs", "Outputs"], "answer": 1 },
+
+            { "question": "Which function measures difference between predicted and actual output?", "options": ["Activation", "Loss function", "Weight", "Bias"], "answer": 1 },
+
+            { "question": "Mean Squared Error is mainly used in which task?", "options": ["Classification", "Regression", "Clustering", "Segmentation"], "answer": 1 },
+
+            { "question": "Cross-Entropy loss is mainly used for which type of problems?", "options": ["Regression", "Classification", "Clustering", "Sorting"], "answer": 1 },
+
+            { "question": "Which optimizer updates weights using random samples?", "options": ["Batch GD", "SGD", "Adam", "Momentum"], "answer": 1 },
+
+            { "question": "Adam optimizer combines which two techniques?", "options": ["SGD and Momentum", "Momentum and RMSProp", "RMSProp and Gradient Descent", "SGD and RMSProp"], "answer": 1 },
+
+            { "question": "Overfitting occurs when model performs well on training but poorly on which data?", "options": ["Training data", "Validation data", "Test data", "Input data"], "answer": 2 },
+
+            { "question": "Which technique reduces overfitting by adding penalty on weights?", "options": ["Dropout", "Regularization", "Normalization", "Pooling"], "answer": 1 },
+
+            { "question": "L1 regularization encourages which type of weights?", "options": ["Large weights", "Sparse weights", "Equal weights", "Random weights"], "answer": 1 },
+
+            { "question": "L2 regularization penalizes which aspect?", "options": ["Absolute weights", "Squared weights", "Input data", "Bias values"], "answer": 1 },
+
+            { "question": "Dropout technique randomly removes what during training?", "options": ["Data", "Neurons", "Weights", "Bias"], "answer": 1 },
+
+            { "question": "TensorFlow is developed by which company?", "options": ["Microsoft", "Google", "Facebook", "Amazon"], "answer": 1 },
+
+            { "question": "PyTorch is mainly developed by which organization?", "options": ["Google", "Meta", "Amazon", "IBM"], "answer": 1 },
+
+            { "question": "Keras is mainly used for what purpose?", "options": ["Low-level coding", "High-level API for deep learning", "Networking", "Database"], "answer": 1 },
+
+            { "question": "Which function introduces non-linearity in neural networks?", "options": ["Loss function", "Activation function", "Optimizer", "Gradient"], "answer": 1 },
+
+            { "question": "Why is non-linearity important in deep learning models?", "options": ["To simplify model", "To learn complex patterns", "To reduce layers", "To remove data"], "answer": 1 },
+
+            { "question": "Which problem can be solved by multi-layer networks but not perceptron?", "options": ["Linear classification", "Non-linear classification", "Sorting", "Searching"], "answer": 1 },
+
+            { "question": "What happens if learning rate is too high?", "options": ["Slow training", "Divergence", "Better accuracy", "No change"], "answer": 1 },
+
+            { "question": "What happens if learning rate is too low?", "options": ["Fast training", "Slow convergence", "High loss", "Overfitting"], "answer": 1 },
+
+            { "question": "Which activation function suffers from vanishing gradient problem?", "options": ["ReLU", "Sigmoid", "Leaky ReLU", "ELU"], "answer": 1 },
+
+            { "question": "ReLU outputs zero for which input values?", "options": ["Positive", "Negative", "Zero", "All"], "answer": 1 },
+
+            { "question": "Which function is best for multi-class classification output?", "options": ["Sigmoid", "Tanh", "ReLU", "Softmax"], "answer": 3 },
+
+            { "question": "What does bias help in neural networks?", "options": ["Shift output", "Remove data", "Reduce layers", "Increase nodes"], "answer": 0 },
+
+            { "question": "Epoch refers to what in training process?", "options": ["One iteration over dataset", "One neuron update", "One layer", "One prediction"], "answer": 0 },
+
+            { "question": "Batch size defines what?", "options": ["Number of layers", "Number of samples per update", "Number of epochs", "Learning rate"], "answer": 1 },
+
+            { "question": "Which technique helps model generalize better?", "options": ["Overfitting", "Regularization", "Memorization", "Noise"], "answer": 1 },
+
+            { "question": "Which loss function is sensitive to outliers?", "options": ["Cross-Entropy", "MSE", "Softmax", "ReLU"], "answer": 1 },
+
+            { "question": "Which optimizer adapts learning rate dynamically?", "options": ["SGD", "Adam", "Batch GD", "None"], "answer": 1 },
+
+            { "question": "Backpropagation uses which concept for updating weights?", "options": ["Chain rule", "Sorting", "Searching", "Clustering"], "answer": 0 },
+
+            { "question": "Which framework is easier for beginners due to simplicity?", "options": ["TensorFlow low-level", "Keras", "C++", "Assembly"], "answer": 1 },
+
+            { "question": "Which activation function is zero-centered?", "options": ["Sigmoid", "ReLU", "Tanh", "Softmax"], "answer": 2 },
+
+            { "question": "Which problem occurs when gradients become extremely small?", "options": ["Overfitting", "Vanishing gradient", "Exploding gradient", "Underfitting"], "answer": 1 },
+
+            { "question": "Which problem occurs when gradients become extremely large?", "options": ["Vanishing gradient", "Exploding gradient", "Overfitting", "Underfitting"], "answer": 1 },
+
+            { "question": "Which technique is used to reduce exploding gradients?", "options": ["Dropout", "Gradient clipping", "Normalization", "Pooling"], "answer": 1 },
+
+            { "question": "Which neural network layer produces final output?", "options": ["Input layer", "Hidden layer", "Output layer", "Pooling layer"], "answer": 2 },
+
+            { "question": "Which step comes after forward propagation?", "options": ["Prediction", "Backpropagation", "Input", "Loss removal"], "answer": 1 },
+
+            { "question": "Which model is simplest form of neural network?", "options": ["CNN", "RNN", "Perceptron", "GAN"], "answer": 2 },
+
+            { "question": "Which parameter is updated during training?", "options": ["Weights", "Dataset", "Layers", "Epoch"], "answer": 0 },
+
+            { "question": "Which term refers to model performing poorly on both training and test data?", "options": ["Overfitting", "Underfitting", "Regularization", "Optimization"], "answer": 1 },
+
+            { "question": "Which concept improves model performance by tuning hyperparameters?", "options": ["Training", "Optimization", "Testing", "Prediction"], "answer": 1 },
+
+            { "question": "Which algorithm is used to minimize loss function?", "options": ["Gradient Descent", "Sorting", "Searching", "Clustering"], "answer": 0 },
+
+            { "question": "Which loss function works well with softmax output?", "options": ["MSE", "Cross-Entropy", "MAE", "Hinge"], "answer": 1 },
+
+            { "question": "Which library supports GPU acceleration for deep learning?", "options": ["TensorFlow", "PyTorch", "Both", "None"], "answer": 2 },
+
+            { "question": "Which technique randomly drops neurons during training to prevent overfitting?", "options": ["Normalization", "Dropout", "Pooling", "Clipping"], "answer": 1 },
+
+            { "question": "Which architecture increases model depth?", "options": ["Single layer", "Multiple hidden layers", "No layers", "Linear model"], "answer": 1 },
+
+            { "question": "Which concept refers to adjusting weights to minimize error iteratively?", "options": ["Learning", "Training", "Optimization", "Testing"], "answer": 2 },
+
+            { "question": "Which method uses entire dataset for each update?", "options": ["SGD", "Batch Gradient Descent", "Mini-batch", "Adam"], "answer": 1 },
+
+            { "question": "Which method balances between SGD and Batch GD?", "options": ["Mini-batch", "Adam", "Momentum", "RMSProp"], "answer": 0 },
             { "question": "power bi mcq  ", "options": [], "answer": null },
             { "question": "What does BI stand for?", "options": ["Business Insight", "Business Intelligence", "Business Integration", "Business Information"], "answer": 1, "level": "easy" },
 
